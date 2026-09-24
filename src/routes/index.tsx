@@ -54,6 +54,15 @@ const stats = [
 ];
 
 function Index() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Project inquiry from ${form.name}`);
+    const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
+    window.location.href = `mailto:hello@maravoss.dev?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
