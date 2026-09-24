@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
 
@@ -53,6 +54,15 @@ const stats = [
 ];
 
 function Index() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Project inquiry from ${form.name}`);
+    const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
+    window.location.href = `mailto:hello@maravoss.dev?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
@@ -198,10 +208,81 @@ function Index() {
         </div>
       </section>
 
+      <section id="message" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
+          <div className="md:col-span-5">
+            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
+              (c) Write a message
+            </span>
+            <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance md:text-4xl">
+              Tell me what you're building.
+            </h2>
+            <p className="mt-4 max-w-[40ch] text-ink/70 text-pretty">
+              A few lines about your project is plenty — I'll get back to you
+              within a couple of days.
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:col-span-7">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <label className="flex flex-col gap-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
+                  Name
+                </span>
+                <input
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  placeholder="Your name"
+                  className="border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+                />
+              </label>
+              <label className="flex flex-col gap-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="you@company.com"
+                  className="border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+                />
+              </label>
+            </div>
+            <label className="flex flex-col gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
+                Message
+              </span>
+              <textarea
+                required
+                rows={5}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                placeholder="What are you working on?"
+                className="resize-none border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+              />
+            </label>
+            <div className="flex items-center justify-between gap-4">
+              <span className="max-w-[32ch] font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40">
+                Opens your email app with the message ready to send
+              </span>
+              <button
+                type="submit"
+                className="rounded-full bg-brand px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
+              >
+                Send message
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
       <section id="contact" className="bg-ink text-paper">
         <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-12 lg:py-28">
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/50">
-            (c) Contact
+            (d) Contact
           </span>
           <h2 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance">
             Have a project in mind? <span className="text-brand">Let's build it.</span>
