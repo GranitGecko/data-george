@@ -282,7 +282,7 @@ function Index() {
       <section id="contact" className="bg-ink text-paper">
         <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-12 lg:py-28">
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/50">
-            (c) Contact
+            (d) Contact
           </span>
           <h2 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance">
             Have a project in mind? <span className="text-brand">Let's build it.</span>
