@@ -67,9 +67,6 @@ function Index() {
             <a href="#about" className="transition-colors hover:text-brand">
               About
             </a>
-            <a href="#contact" className="transition-colors hover:text-brand">
-              Contact
-            </a>
           </nav>
           <a
             href="#contact"
