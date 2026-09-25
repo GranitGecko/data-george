@@ -198,7 +198,7 @@ function Index() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-[1400px] px-6 pt-16 pb-12 lg:px-12 lg:pt-24">
+      <section className="mx-auto max-w-[1400px] px-6 pt-16 pb-2 lg:px-12 lg:pt-24">
         <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 animate-[rise_0.5s_var(--ease-rise)_both]">
           <span className="size-2 rounded-full bg-brand"></span> {c.available}
         </div>
