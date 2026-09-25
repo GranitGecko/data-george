@@ -32,8 +32,7 @@ const t = {
     heroB: "intention.",
     intro:
       "I'm Mara — a product & interface engineer who turns complex systems into interfaces that feel inevitable, considered, and quietly engineered to the last detail.",
-    seeWork: "See the work",
-    startProject: "Start a project",
+    documentsLabel: "Documents",
     selectedWork: "Selected work",
     open: "Open",
     aboutLabel: "(a) About",
@@ -75,8 +74,7 @@ const t = {
     heroB: "avsikt.",
     intro:
       "Jag heter Mara — en produkt- och gränssnittsutvecklare som förvandlar komplexa system till gränssnitt som känns självklara, genomtänkta och noggrant utformade in i minsta detalj.",
-    seeWork: "Se arbetena",
-    startProject: "Starta ett projekt",
+    documentsLabel: "Dokument",
     selectedWork: "Utvalda arbeten",
     open: "Öppna",
     aboutLabel: "(a) Om mig",
@@ -112,6 +110,20 @@ const t = {
 };
 
 const statValues = ["8+", "40+", "6"];
+
+const documents = [
+  { href: "/files/cv.pdf", en: "CV — Mara Voss", sv: "CV — Mara Voss" },
+  {
+    href: "/files/reference-letters.pdf",
+    en: "Reference letters",
+    sv: "Rekommendationsbrev",
+  },
+  {
+    href: "/files/grades.pdf",
+    en: "Grades & transcript",
+    sv: "Betyg och studieförteckning",
+  },
+];
 
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
@@ -197,20 +209,6 @@ function Index() {
           <p className="max-w-[46ch] text-lg text-ink/70 text-pretty md:col-span-7 md:text-xl">
             {c.intro}
           </p>
-          <div className="flex gap-3 md:col-span-5 md:justify-end">
-            <a
-              href="#work"
-              className="rounded-full bg-brand px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
-            >
-              {c.seeWork}
-            </a>
-            <a
-              href="#contact"
-              className="rounded-full border border-ink/25 px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] transition-colors hover:bg-ink hover:text-paper"
-            >
-              {c.startProject}
-            </a>
-          </div>
         </div>
       </section>
 
@@ -376,6 +374,30 @@ function Index() {
               <a href="#" className="transition-colors hover:text-brand">GitHub</a>
               <a href="#" className="transition-colors hover:text-brand">LinkedIn</a>
               <a href="#" className="transition-colors hover:text-brand">Read.cv</a>
+            </div>
+          </div>
+          <div className="mt-14 border-t border-paper/15 pt-6">
+            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/40">
+              {c.documentsLabel}
+            </span>
+            <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.14em]">
+              {documents.map((d) => (
+                <a
+                  key={d.href}
+                  href={d.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2 text-paper/70 transition-colors hover:text-brand"
+                >
+                  <span aria-hidden="true" className="text-paper/40 group-hover:text-brand">
+                    ↓
+                  </span>
+                  {lang === "en" ? d.en : d.sv}
+                  <span aria-hidden="true" className="text-[10px] text-paper/35">
+                    PDF
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
