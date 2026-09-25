@@ -182,12 +182,6 @@ function Index() {
                 </span>
               ))}
             </div>
-            <a
-              href="#contact"
-              className="rounded-full bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-paper transition-colors hover:bg-brand hover:text-soft"
-            >
-              {c.talk}
-            </a>
           </div>
         </div>
       </header>
