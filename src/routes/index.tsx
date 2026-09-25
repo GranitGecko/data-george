@@ -27,25 +27,25 @@ const t = {
     navWork: "Work",
     navAbout: "About",
     talk: "Let's talk",
-    available: "Available for select projects — 2025",
-    heroA: "Software, made with",
-    heroB: "intention.",
+    available: "AVAILABLE FROM SEPTEMBER 2027",
+    heroA: "Need a",
+    heroB: "Developer?",
     intro:
-      "I'm Mara — a product & interface engineer who turns complex systems into interfaces that feel inevitable, considered, and quietly engineered to the last detail.",
+      "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
     documentsLabel: "Documents",
-    selectedWork: "Selected work",
+    selectedWork: "Portfolio",
     open: "Open",
-    aboutLabel: "(a) About",
+    aboutLabel: "ABOUT",
     portraitAlt: "Mara Voss at her desk",
-    practice: "(b) The practice",
+    practice: "PRACTICAL",
     aboutTitle:
-      "I build the quiet parts of software — the interfaces that make products feel considered.",
+      "I build and maintain websystems",
     aboutBody:
-      "For eight years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
+      "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
     stats: ["Years shipping", "Products launched", "Design systems"],
-    msgLabel: "(c) Write a message",
-    msgTitle: "Tell me what you're building.",
-    msgBody: "A few lines about your project is plenty — I'll get back to you within a couple of days.",
+    msgLabel: "WRITE A MESSAGE",
+    msgTitle: "Lets reach out",
+    msgBody: "Tell me what's up, let me know your thoughts or if I can help you with anything.",
     name: "Name",
     namePh: "Your name",
     email: "Email",
@@ -54,9 +54,9 @@ const t = {
     formNote: "Opens your email app with the message ready to send",
     send: "Send message",
     subject: "Project inquiry from",
-    contactLabel: "(d) Contact",
+    contactLabel: "CONTACT",
     contactA: "Have a project in mind?",
-    contactB: "Let's build it.",
+    contactB: "",
     footer: "Mara Voss — Interface Engineer",
     projects: [
       { title: "Lumen Design System", meta: "Design tooling · 2024", tag: "Figma plugin" },
@@ -109,7 +109,7 @@ const t = {
   },
 };
 
-const statValues = ["8+", "40+", "6"];
+const statValues = ["4+", "82+", "6"];
 
 const documents = [
   { href: "/files/cv.pdf", en: "CV — Mara Voss", sv: "CV — Mara Voss" },
