@@ -151,12 +151,15 @@ function Index() {
           <a href="/" className="font-display text-lg font-extrabold tracking-tight">
             Mara Voss<span className="text-brand">.</span>
           </a>
-          <nav className="hidden items-center gap-8 font-mono text-xs uppercase tracking-[0.14em] sm:flex">
+          <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-[0.14em] sm:gap-8">
             <a href="#work" className="transition-colors hover:text-brand">
               {c.navWork}
             </a>
             <a href="#about" className="transition-colors hover:text-brand">
               {c.navAbout}
+            </a>
+            <a href="#contact" className="transition-colors hover:text-brand">
+              {c.talk}
             </a>
           </nav>
           <div className="flex items-center gap-4">
@@ -179,12 +182,6 @@ function Index() {
                 </span>
               ))}
             </div>
-            <a
-              href="#contact"
-              className="rounded-full bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-paper transition-colors hover:bg-brand hover:text-soft"
-            >
-              {c.talk}
-            </a>
           </div>
         </div>
       </header>
