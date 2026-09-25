@@ -158,6 +158,9 @@ function Index() {
             <a href="#about" className="transition-colors hover:text-brand">
               {c.navAbout}
             </a>
+            <a href="#contact" className="transition-colors hover:text-brand">
+              {c.talk}
+            </a>
           </nav>
           <div className="flex items-center gap-4">
             <div
