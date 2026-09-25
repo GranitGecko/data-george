@@ -151,7 +151,7 @@ function Index() {
           <a href="/" className="font-display text-lg font-extrabold tracking-tight">
             Mara Voss<span className="text-brand">.</span>
           </a>
-          <nav className="hidden items-center gap-8 font-mono text-xs uppercase tracking-[0.14em] sm:flex">
+          <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-[0.14em] sm:gap-8">
             <a href="#work" className="transition-colors hover:text-brand">
               {c.navWork}
             </a>
