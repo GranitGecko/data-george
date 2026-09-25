@@ -216,7 +216,7 @@ function Index() {
         <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
           <h2 className="font-display text-3xl font-extrabold tracking-tight">{c.selectedWork}</h2>
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-            2022 — 2025
+            2022 — 2027
           </span>
         </div>
         <ul className="mt-4">
