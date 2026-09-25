@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
 
@@ -20,48 +20,129 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const projects = [
-  {
-    num: "01",
-    title: "Lumen Design System",
-    meta: "Design tooling · 2024",
-    tag: "Figma plugin",
-  },
-  {
-    num: "02",
-    title: "Field — Data Platform",
-    meta: "Product interface · 2023",
-    tag: "Web app",
-  },
-  {
-    num: "03",
-    title: "Tessera Mobile",
-    meta: "Mobile product · 2023",
-    tag: "iOS + Android",
-  },
-  {
-    num: "04",
-    title: "Cadence Analytics",
-    meta: "Internal tooling · 2022",
-    tag: "Analytics",
-  },
-];
+type Lang = "en" | "sv";
 
-const stats = [
-  { value: "8+", label: "Years shipping" },
-  { value: "40+", label: "Products launched" },
-  { value: "6", label: "Design systems" },
-];
+const t = {
+  en: {
+    navWork: "Work",
+    navAbout: "About",
+    talk: "Let's talk",
+    available: "Available for select projects — 2025",
+    heroA: "Software, made with",
+    heroB: "intention.",
+    intro:
+      "I'm Mara — a product & interface engineer who turns complex systems into interfaces that feel inevitable, considered, and quietly engineered to the last detail.",
+    seeWork: "See the work",
+    startProject: "Start a project",
+    selectedWork: "Selected work",
+    open: "Open",
+    aboutLabel: "(a) About",
+    portraitAlt: "Mara Voss at her desk",
+    practice: "(b) The practice",
+    aboutTitle:
+      "I build the quiet parts of software — the interfaces that make products feel considered.",
+    aboutBody:
+      "For eight years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
+    stats: ["Years shipping", "Products launched", "Design systems"],
+    msgLabel: "(c) Write a message",
+    msgTitle: "Tell me what you're building.",
+    msgBody: "A few lines about your project is plenty — I'll get back to you within a couple of days.",
+    name: "Name",
+    namePh: "Your name",
+    email: "Email",
+    message: "Message",
+    messagePh: "What are you working on?",
+    formNote: "Opens your email app with the message ready to send",
+    send: "Send message",
+    subject: "Project inquiry from",
+    contactLabel: "(d) Contact",
+    contactA: "Have a project in mind?",
+    contactB: "Let's build it.",
+    footer: "Mara Voss — Interface Engineer",
+    projects: [
+      { title: "Lumen Design System", meta: "Design tooling · 2024", tag: "Figma plugin" },
+      { title: "Field — Data Platform", meta: "Product interface · 2023", tag: "Web app" },
+      { title: "Tessera Mobile", meta: "Mobile product · 2023", tag: "iOS + Android" },
+      { title: "Cadence Analytics", meta: "Internal tooling · 2022", tag: "Analytics" },
+    ],
+  },
+  sv: {
+    navWork: "Arbeten",
+    navAbout: "Om mig",
+    talk: "Hör av dig",
+    available: "Tillgänglig för utvalda projekt — 2025",
+    heroA: "Mjukvara, byggd med",
+    heroB: "avsikt.",
+    intro:
+      "Jag heter Mara — en produkt- och gränssnittsutvecklare som förvandlar komplexa system till gränssnitt som känns självklara, genomtänkta och noggrant utformade in i minsta detalj.",
+    seeWork: "Se arbetena",
+    startProject: "Starta ett projekt",
+    selectedWork: "Utvalda arbeten",
+    open: "Öppna",
+    aboutLabel: "(a) Om mig",
+    portraitAlt: "Mara Voss vid sitt skrivbord",
+    practice: "(b) Arbetssättet",
+    aboutTitle:
+      "Jag bygger de tysta delarna av mjukvara — gränssnitten som får produkter att kännas genomtänkta.",
+    aboutBody:
+      "I åtta år har jag arbetat i skärningspunkten mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
+    stats: ["År av leveranser", "Lanserade produkter", "Designsystem"],
+    msgLabel: "(c) Skriv ett meddelande",
+    msgTitle: "Berätta vad du bygger.",
+    msgBody: "Några rader om ditt projekt räcker gott — jag återkommer inom ett par dagar.",
+    name: "Namn",
+    namePh: "Ditt namn",
+    email: "E-post",
+    message: "Meddelande",
+    messagePh: "Vad arbetar du med?",
+    formNote: "Öppnar din e-postapp med meddelandet redo att skickas",
+    send: "Skicka meddelande",
+    subject: "Projektförfrågan från",
+    contactLabel: "(d) Kontakt",
+    contactA: "Har du ett projekt på gång?",
+    contactB: "Låt oss bygga det.",
+    footer: "Mara Voss — Gränssnittsutvecklare",
+    projects: [
+      { title: "Lumen Design System", meta: "Designverktyg · 2024", tag: "Figma-plugin" },
+      { title: "Field — Dataplattform", meta: "Produktgränssnitt · 2023", tag: "Webbapp" },
+      { title: "Tessera Mobile", meta: "Mobilprodukt · 2023", tag: "iOS + Android" },
+      { title: "Cadence Analytics", meta: "Internt verktyg · 2022", tag: "Analys" },
+    ],
+  },
+};
+
+const statValues = ["8+", "40+", "6"];
 
 function Index() {
+  const [lang, setLang] = useState<Lang>("en");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const c = t[lang];
+
+  useEffect(() => {
+    const saved = localStorage.getItem("lang");
+    if (saved === "sv" || saved === "en") setLang(saved);
+    else if (navigator.language.toLowerCase().startsWith("sv")) setLang("sv");
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  const switchLang = (l: Lang) => {
+    setLang(l);
+    localStorage.setItem("lang", l);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Project inquiry from ${form.name}`);
+    const subject = encodeURIComponent(`${c.subject} ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
     window.location.href = `mailto:hello@maravoss.dev?subject=${subject}&body=${body}`;
   };
+
+  const inputCls =
+    "border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand";
+  const labelCls = "font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50";
 
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
@@ -72,47 +153,65 @@ function Index() {
           </a>
           <nav className="hidden items-center gap-8 font-mono text-xs uppercase tracking-[0.14em] sm:flex">
             <a href="#work" className="transition-colors hover:text-brand">
-              Work
+              {c.navWork}
             </a>
             <a href="#about" className="transition-colors hover:text-brand">
-              About
+              {c.navAbout}
             </a>
           </nav>
-          <a
-            href="#contact"
-            className="rounded-full bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-paper transition-colors hover:bg-brand hover:text-soft"
-          >
-            Let's talk
-          </a>
+          <div className="flex items-center gap-4">
+            <div
+              role="group"
+              aria-label="Language"
+              className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.14em]"
+            >
+              {(["en", "sv"] as Lang[]).map((l, i) => (
+                <span key={l} className="flex items-center gap-1">
+                  {i > 0 && <span className="text-ink/30">/</span>}
+                  <button
+                    type="button"
+                    onClick={() => switchLang(l)}
+                    aria-pressed={lang === l}
+                    className={`transition-colors hover:text-brand ${lang === l ? "text-brand" : "text-ink/50"}`}
+                  >
+                    {l}
+                  </button>
+                </span>
+              ))}
+            </div>
+            <a
+              href="#contact"
+              className="rounded-full bg-ink px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-paper transition-colors hover:bg-brand hover:text-soft"
+            >
+              {c.talk}
+            </a>
+          </div>
         </div>
       </header>
 
       <section className="mx-auto max-w-[1400px] px-6 pt-16 pb-12 lg:px-12 lg:pt-24">
         <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 animate-[rise_0.5s_var(--ease-rise)_both]">
-          <span className="size-2 rounded-full bg-brand"></span> Available for
-          select projects — 2025
+          <span className="size-2 rounded-full bg-brand"></span> {c.available}
         </div>
         <h1 className="mt-6 animate-[rise_0.7s_var(--ease-rise)_both] font-display text-[clamp(3.4rem,12vw,10rem)] leading-[0.92] font-extrabold tracking-[-0.03em] text-balance [animation-delay:80ms]">
-          Software, made with <span className="text-brand">intention.</span>
+          {c.heroA} <span className="text-brand">{c.heroB}</span>
         </h1>
         <div className="mt-10 grid animate-[rise_0.7s_var(--ease-rise)_both] grid-cols-1 items-end gap-6 [animation-delay:160ms] md:grid-cols-12">
           <p className="max-w-[46ch] text-lg text-ink/70 text-pretty md:col-span-7 md:text-xl">
-            I'm Mara — a product &amp; interface engineer who turns complex
-            systems into interfaces that feel inevitable, considered, and
-            quietly engineered to the last detail.
+            {c.intro}
           </p>
           <div className="flex gap-3 md:col-span-5 md:justify-end">
             <a
               href="#work"
               className="rounded-full bg-brand px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
             >
-              See the work
+              {c.seeWork}
             </a>
             <a
               href="#contact"
               className="rounded-full border border-ink/25 px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] transition-colors hover:bg-ink hover:text-paper"
             >
-              Start a project
+              {c.startProject}
             </a>
           </div>
         </div>
@@ -120,21 +219,19 @@ function Index() {
 
       <section id="work" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight">
-            Selected work
-          </h2>
+          <h2 className="font-display text-3xl font-extrabold tracking-tight">{c.selectedWork}</h2>
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
             2022 — 2025
           </span>
         </div>
         <ul className="mt-4">
-          {projects.map((p) => (
+          {c.projects.map((p, i) => (
             <li
-              key={p.num}
+              key={i}
               className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line py-6 sm:gap-8"
             >
               <span className="font-mono text-xs text-ink/40 transition-colors group-hover:text-brand">
-                {p.num}
+                {String(i + 1).padStart(2, "0")}
               </span>
               <div className="flex flex-col">
                 <a
@@ -153,7 +250,7 @@ function Index() {
                 </span>
                 <a
                   href="#work"
-                  aria-label={`Open ${p.title}`}
+                  aria-label={`${c.open} ${p.title}`}
                   className="grid size-9 place-items-center rounded-full border border-ink/20 text-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-soft"
                 >
                   →
@@ -168,11 +265,11 @@ function Index() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-              (a) About
+              {c.aboutLabel}
             </span>
             <img
               src={portrait}
-              alt="Mara Voss at her desk"
+              alt={c.portraitAlt}
               width={1024}
               height={1280}
               loading="lazy"
@@ -181,25 +278,18 @@ function Index() {
           </div>
           <div className="flex flex-col justify-center md:col-span-7">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
-              (b) The practice
+              {c.practice}
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance md:text-5xl">
-              I build the quiet parts of software — the interfaces that make
-              products feel considered.
+              {c.aboutTitle}
             </h2>
-            <p className="mt-6 max-w-[52ch] text-lg text-ink/70 text-pretty">
-              For eight years I've worked at the seam between design and
-              engineering, shipping design systems, data-heavy tools, and
-              mobile products for teams that care about craft. My work lives in
-              the details: spacing, motion, and the honest handling of every
-              edge case.
-            </p>
+            <p className="mt-6 max-w-[52ch] text-lg text-ink/70 text-pretty">{c.aboutBody}</p>
             <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <div className="font-display text-3xl font-extrabold">{s.value}</div>
+              {c.stats.map((label, i) => (
+                <div key={label}>
+                  <div className="font-display text-3xl font-extrabold">{statValues[i]}</div>
                   <div className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                    {s.label}
+                    {label}
                   </div>
                 </div>
               ))}
@@ -212,67 +302,58 @@ function Index() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-              (c) Write a message
+              {c.msgLabel}
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance md:text-4xl">
-              Tell me what you're building.
+              {c.msgTitle}
             </h2>
-            <p className="mt-4 max-w-[40ch] text-ink/70 text-pretty">
-              A few lines about your project is plenty — I'll get back to you
-              within a couple of days.
-            </p>
+            <p className="mt-4 max-w-[40ch] text-ink/70 text-pretty">{c.msgBody}</p>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:col-span-7">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <label className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  Name
-                </span>
+                <span className={labelCls}>{c.name}</span>
                 <input
                   type="text"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Your name"
-                  className="border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+                  placeholder={c.namePh}
+                  className={inputCls}
                 />
               </label>
               <label className="flex flex-col gap-2">
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  Email
-                </span>
+                <span className={labelCls}>{c.email}</span>
                 <input
                   type="email"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="you@company.com"
-                  className="border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+                  className={inputCls}
                 />
               </label>
             </div>
             <label className="flex flex-col gap-2">
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                Message
-              </span>
+              <span className={labelCls}>{c.message}</span>
               <textarea
                 required
                 rows={5}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="What are you working on?"
-                className="resize-none border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
+                placeholder={c.messagePh}
+                className={`resize-none ${inputCls}`}
               />
             </label>
             <div className="flex items-center justify-between gap-4">
               <span className="max-w-[32ch] font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40">
-                Opens your email app with the message ready to send
+                {c.formNote}
               </span>
               <button
                 type="submit"
                 className="rounded-full bg-brand px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
               >
-                Send message
+                {c.send}
               </button>
             </div>
           </form>
@@ -282,10 +363,10 @@ function Index() {
       <section id="contact" className="bg-ink text-paper">
         <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-12 lg:py-28">
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/50">
-            (d) Contact
+            {c.contactLabel}
           </span>
           <h2 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance">
-            Have a project in mind? <span className="text-brand">Let's build it.</span>
+            {c.contactA} <span className="text-brand">{c.contactB}</span>
           </h2>
           <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
             <a
@@ -295,15 +376,9 @@ function Index() {
               hello@maravoss.dev
             </a>
             <div className="flex gap-8 font-mono text-xs uppercase tracking-[0.14em] text-paper/70">
-              <a href="#" className="transition-colors hover:text-brand">
-                GitHub
-              </a>
-              <a href="#" className="transition-colors hover:text-brand">
-                LinkedIn
-              </a>
-              <a href="#" className="transition-colors hover:text-brand">
-                Read.cv
-              </a>
+              <a href="#" className="transition-colors hover:text-brand">GitHub</a>
+              <a href="#" className="transition-colors hover:text-brand">LinkedIn</a>
+              <a href="#" className="transition-colors hover:text-brand">Read.cv</a>
             </div>
           </div>
         </div>
@@ -311,7 +386,7 @@ function Index() {
 
       <footer className="border-t border-paper/15 bg-ink text-paper">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/50 lg:px-12">
-          <span>Mara Voss — Interface Engineer</span>
+          <span>{c.footer}</span>
           <span>© 2025</span>
         </div>
       </footer>
