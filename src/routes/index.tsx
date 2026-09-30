@@ -192,11 +192,11 @@ function Index() {
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-6 lg:px-12">
-          <a href="/" className="shrink-0 whitespace-nowrap font-display text-base font-extrabold tracking-tight sm:text-lg">
+        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-5 sm:px-6 lg:px-12">
+          <a href="/" className="shrink-0 whitespace-nowrap font-display text-sm font-extrabold tracking-tight sm:text-base lg:text-lg">
             George Schedvin<span className="text-brand">.</span>
           </a>
-          <nav className="flex items-center gap-3 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-8 sm:text-xs sm:tracking-[0.14em]">
+          <nav className="flex items-center gap-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-8 sm:text-xs sm:tracking-[0.14em]">
             <a href="#work" className="transition-colors hover:text-brand">
               {c.navWork}
             </a>
