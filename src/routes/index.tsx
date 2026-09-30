@@ -136,7 +136,7 @@ const documents = [
 const skills = [
   {
     icon: Code2,
-    chips: ["React", "TypeScript", "JavaScript"],
+    chips: { en: ["React", "TypeScript", "JavaScript"], sv: ["React", "TypeScript", "JavaScript"] },
     en: {
       title: "The interface",
       body: "Everything starts with a click. I build those interfaces in React and write TypeScript so the code explains itself — mistakes surface while I'm working, not after we ship.",
@@ -148,7 +148,7 @@ const skills = [
   },
   {
     icon: Database,
-    chips: ["SQL", "Datamodellering", "Rapportering"],
+    chips: { en: ["SQL", "Data modelling", "Reporting"], sv: ["SQL", "Datamodellering", "Rapportering"] },
     en: {
       title: "The data",
       body: "Behind most screens sits a database. I model it, query it in SQL, and turn the result into something a person actually understands — that's where statistics and clear data meet.",
@@ -160,7 +160,7 @@ const skills = [
   },
   {
     icon: Cloud,
-    chips: ["AWS", "Lambda", "S3", "Övervakning"],
+    chips: { en: ["AWS", "Lambda", "S3", "Monitoring"], sv: ["AWS", "Lambda", "S3", "Övervakning"] },
     en: {
       title: "The infrastructure",
       body: "The parts that need to run without me live on AWS. I set up the services, make them observable, and keep the system cheap when it's quiet and steady when it's busy.",
@@ -172,7 +172,10 @@ const skills = [
   },
   {
     icon: CreditCard,
-    chips: ["Stripe", "Betalväxlar", "Webhooks", "API-integrationer"],
+    chips: {
+      en: ["Stripe", "Payment gateways", "Webhooks", "API integrations"],
+      sv: ["Stripe", "Betalväxlar", "Webhooks", "API-integrationer"],
+    },
     en: {
       title: "Integration & payment",
       body: "No product lives alone. I connect it to the systems around it — other APIs, sign-in, and checkout through gateways like Stripe — so money and information move without anyone having to watch them.",
@@ -352,7 +355,7 @@ function Index() {
                     {lang === "en" ? s.en.body : s.sv.body}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {s.chips.map((chip) => (
+                    {s.chips[lang].map((chip) => (
                       <span
                         key={chip}
                         className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60"
