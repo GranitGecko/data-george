@@ -37,8 +37,7 @@ const t = {
     selectedWork: "Portfolio",
     skillsKicker: "SKILLS",
     skillsTitle: "The common thread",
-    skillsIntro:
-      "Every project follows the same path: a click on screen becomes a question to the data, the data becomes a decision, and a decision often ends as a payment. Here is what I handle at each step.",
+    skillsIntro: "One click follows the same path through the whole system.",
     open: "Open",
     aboutLabel: "ABOUT",
     portraitAlt: "Mara Voss at her desk",
@@ -83,8 +82,7 @@ const t = {
     selectedWork: "Portfölj",
     skillsKicker: "KOMPETENS",
     skillsTitle: "Den röda tråden",
-    skillsIntro:
-      "Varje projekt följer samma väg: ett klick på skärmen blir en fråga mot datan, datan blir ett beslut, och ett beslut blir ofta en betalning. Här är vad jag gör i varje steg.",
+    skillsIntro: "Ett klick följer samma väg genom hela systemet.",
     open: "Öppna",
     aboutLabel: "OM MIG",
     portraitAlt: "Mara Voss vid sitt skrivbord",
