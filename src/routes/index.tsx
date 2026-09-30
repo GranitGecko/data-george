@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
+import { Cloud, Code2, CreditCard, Database } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,6 +35,10 @@ const t = {
       "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
     documentsLabel: "Documents",
     selectedWork: "Portfolio",
+    skillsKicker: "SKILLS",
+    skillsTitle: "The common thread",
+    skillsIntro:
+      "Every project follows the same path: a click on screen becomes a question to the data, the data becomes a decision, and a decision often ends as a payment. Here is what I handle at each step.",
     open: "Open",
     aboutLabel: "ABOUT",
     portraitAlt: "Mara Voss at her desk",
@@ -76,6 +81,10 @@ const t = {
       "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
     documentsLabel: "Dokument",
     selectedWork: "Portfölj",
+    skillsKicker: "KOMPETENS",
+    skillsTitle: "Den röda tråden",
+    skillsIntro:
+      "Varje projekt följer samma väg: ett klick på skärmen blir en fråga mot datan, datan blir ett beslut, och ett beslut blir ofta en betalning. Här är vad jag gör i varje steg.",
     open: "Öppna",
     aboutLabel: "OM MIG",
     portraitAlt: "Mara Voss vid sitt skrivbord",
@@ -121,6 +130,57 @@ const documents = [
     href: "/files/grades.pdf",
     en: "Grades & transcript",
     sv: "Betyg och studieförteckning",
+  },
+];
+
+const skills = [
+  {
+    icon: Code2,
+    chips: ["React", "TypeScript", "JavaScript"],
+    en: {
+      title: "The interface",
+      body: "Everything starts with a click. I build those interfaces in React and write TypeScript so the code explains itself — mistakes surface while I'm working, not after we ship.",
+    },
+    sv: {
+      title: "Gränssnittet",
+      body: "Allt börjar med ett klick. Jag bygger de gränssnitten i React och skriver TypeScript så att koden förklarar sig själv — felen dyker upp medan jag jobbar, inte efter att vi släppt.",
+    },
+  },
+  {
+    icon: Database,
+    chips: ["SQL", "Datamodellering", "Rapportering"],
+    en: {
+      title: "The data",
+      body: "Behind most screens sits a database. I model it, query it in SQL, and turn the result into something a person actually understands — that's where statistics and clear data meet.",
+    },
+    sv: {
+      title: "Datat",
+      body: "Bakom de flesta vyer ligger en databas. Jag modellerar den, hämtar datan med SQL och förvandlar resultatet till något en människa faktiskt förstår — där möts statistik och tydlig data.",
+    },
+  },
+  {
+    icon: Cloud,
+    chips: ["AWS", "Lambda", "S3", "Övervakning"],
+    en: {
+      title: "The infrastructure",
+      body: "The parts that need to run without me live on AWS. I set up the services, make them observable, and keep the system cheap when it's quiet and steady when it's busy.",
+    },
+    sv: {
+      title: "Infrastrukturen",
+      body: "Det som ska köra utan mig ligger på AWS. Jag sätter upp tjänsterna, gör dem övervakningsbara och ser till att systemet är billigt när det är tyst och stabilt när det är fullt.",
+    },
+  },
+  {
+    icon: CreditCard,
+    chips: ["Stripe", "Betalväxlar", "Webhooks", "API-integrationer"],
+    en: {
+      title: "Integration & payment",
+      body: "No product lives alone. I connect it to the systems around it — other APIs, sign-in, and checkout through gateways like Stripe — so money and information move without anyone having to watch them.",
+    },
+    sv: {
+      title: "Integration & betalning",
+      body: "Ingen produkt lever ensam. Jag kopplar ihop den med systemen runtomkring — andra API:er, inloggning och kassflöden genom betalväxlar som Stripe — så att pengar och information rör på sig utan att någon behöver vakta dem.",
+    },
   },
 ];
 
@@ -253,6 +313,59 @@ function Index() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section id="skills" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
+        <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
+          <h2 className="font-display text-3xl font-extrabold tracking-tight">
+            {c.skillsTitle}
+          </h2>
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
+            {c.skillsKicker}
+          </span>
+        </div>
+        <p className="mt-4 max-w-[56ch] text-ink/70 text-pretty">{c.skillsIntro}</p>
+        <div className="mt-10">
+          {skills.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.en.title}
+                className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 sm:gap-x-8"
+              >
+                <div className="flex flex-col items-center">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full border border-brand/40 bg-paper font-mono text-[11px] text-brand">
+                    {i + 1}
+                  </span>
+                  {i < skills.length - 1 && (
+                    <span aria-hidden="true" className="w-px flex-1 bg-brand/25" />
+                  )}
+                </div>
+                <div className="min-w-0 pb-12">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <Icon size={20} className="shrink-0 text-brand" aria-hidden="true" />
+                    <h3 className="truncate font-display text-xl font-bold tracking-tight md:text-2xl">
+                      {lang === "en" ? s.en.title : s.sv.title}
+                    </h3>
+                  </div>
+                  <p className="mt-3 max-w-[56ch] text-ink/70 text-pretty">
+                    {lang === "en" ? s.en.body : s.sv.body}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {s.chips.map((chip) => (
+                      <span
+                        key={chip}
+                        className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60"
+                      >
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <section id="about" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
