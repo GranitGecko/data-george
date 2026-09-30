@@ -137,53 +137,26 @@ const skills = [
   {
     icon: Code2,
     chips: { en: ["React", "TypeScript", "JavaScript"], sv: ["React", "TypeScript", "JavaScript"] },
-    en: {
-      title: "The interface",
-      body: "Everything starts with a click. I build those interfaces in React and write TypeScript so the code explains itself — mistakes surface while I'm working, not after we ship.",
-    },
-    sv: {
-      title: "Gränssnittet",
-      body: "Allt börjar med ett klick. Jag bygger de gränssnitten i React och skriver TypeScript så att koden förklarar sig själv — felen dyker upp medan jag jobbar, inte efter att vi släppt.",
-    },
+    en: { title: "The interface", line: "Where the click begins." },
+    sv: { title: "Gränssnittet", line: "Där klicket börjar." },
   },
   {
     icon: Database,
-    chips: { en: ["SQL", "Data modelling", "Reporting"], sv: ["SQL", "Datamodellering", "Rapportering"] },
-    en: {
-      title: "The data",
-      body: "Behind most screens sits a database. I model it, query it in SQL, and turn the result into something a person actually understands — that's where statistics and clear data meet.",
-    },
-    sv: {
-      title: "Datat",
-      body: "Bakom de flesta vyer ligger en databas. Jag modellerar den, hämtar datan med SQL och förvandlar resultatet till något en människa faktiskt förstår — där möts statistik och tydlig data.",
-    },
+    chips: { en: ["SQL", "Data modelling"], sv: ["SQL", "Datamodellering"] },
+    en: { title: "The data", line: "Where the answers live." },
+    sv: { title: "Datat", line: "Där svaren finns." },
   },
   {
     icon: Cloud,
-    chips: { en: ["AWS", "Lambda", "S3", "Monitoring"], sv: ["AWS", "Lambda", "S3", "Övervakning"] },
-    en: {
-      title: "The infrastructure",
-      body: "The parts that need to run without me live on AWS. I set up the services, make them observable, and keep the system cheap when it's quiet and steady when it's busy.",
-    },
-    sv: {
-      title: "Infrastrukturen",
-      body: "Det som ska köra utan mig ligger på AWS. Jag sätter upp tjänsterna, gör dem övervakningsbara och ser till att systemet är billigt när det är tyst och stabilt när det är fullt.",
-    },
+    chips: { en: ["AWS", "Lambda", "S3"], sv: ["AWS", "Lambda", "S3"] },
+    en: { title: "The infrastructure", line: "Where it keeps running." },
+    sv: { title: "Infrastrukturen", line: "Där det hålls igång." },
   },
   {
     icon: CreditCard,
-    chips: {
-      en: ["Stripe", "Payment gateways", "Webhooks", "API integrations"],
-      sv: ["Stripe", "Betalväxlar", "Webhooks", "API-integrationer"],
-    },
-    en: {
-      title: "Integration & payment",
-      body: "No product lives alone. I connect it to the systems around it — other APIs, sign-in, and checkout through gateways like Stripe — so money and information move without anyone having to watch them.",
-    },
-    sv: {
-      title: "Integration & betalning",
-      body: "Ingen produkt lever ensam. Jag kopplar ihop den med systemen runtomkring — andra API:er, inloggning och kassflöden genom betalväxlar som Stripe — så att pengar och information rör på sig utan att någon behöver vakta dem.",
-    },
+    chips: { en: ["Stripe", "Webhooks", "Payments"], sv: ["Stripe", "Betalväxlar", "Webhooks"] },
+    en: { title: "Integration & payment", line: "Where money and data move." },
+    sv: { title: "Integration & betalning", line: "Där pengar och data rör sig." },
   },
 ];
 
@@ -328,37 +301,41 @@ function Index() {
           </span>
         </div>
         <p className="mt-4 max-w-[56ch] text-ink/70 text-pretty">{c.skillsIntro}</p>
-        <div className="mt-10">
+        <div className="mt-10 grid grid-cols-1 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-0">
           {skills.map((s, i) => {
             const Icon = s.icon;
+            const last = i === skills.length - 1;
             return (
-              <div
-                key={s.en.title}
-                className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 sm:gap-x-8"
-              >
-                <div className="flex flex-col items-center">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full border border-brand/40 bg-paper font-mono text-[11px] text-brand">
-                    {i + 1}
+              <div key={s.en.title} className="relative flex items-start gap-4 lg:block">
+                <div className="relative shrink-0">
+                  <span className="grid size-11 place-items-center rounded-full border border-brand/30 bg-soft text-brand">
+                    <Icon size={18} aria-hidden="true" />
                   </span>
-                  {i < skills.length - 1 && (
-                    <span aria-hidden="true" className="w-px flex-1 bg-brand/25" />
+                  {!last && (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-1/2 top-11 -bottom-8 w-px bg-brand/25 md:hidden"
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-11 -right-6 top-[22px] hidden h-px bg-brand/25 lg:block"
+                      />
+                    </>
                   )}
                 </div>
-                <div className="min-w-0 pb-12">
-                  <div className="flex min-w-0 items-center gap-3">
-                    <Icon size={20} className="shrink-0 text-brand" aria-hidden="true" />
-                    <h3 className="truncate font-display text-xl font-bold tracking-tight md:text-2xl">
-                      {lang === "en" ? s.en.title : s.sv.title}
-                    </h3>
-                  </div>
-                  <p className="mt-3 max-w-[56ch] text-ink/70 text-pretty">
-                    {lang === "en" ? s.en.body : s.sv.body}
+                <div className="min-w-0 pt-1 lg:pt-6">
+                  <h3 className="font-display text-lg font-bold tracking-tight md:text-xl">
+                    {lang === "en" ? s.en.title : s.sv.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-ink/60 text-pretty">
+                    {lang === "en" ? s.en.line : s.sv.line}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {s.chips[lang].map((chip) => (
                       <span
                         key={chip}
-                        className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60"
+                        className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/60"
                       >
                         {chip}
                       </span>
