@@ -69,25 +69,24 @@ const t = {
     navWork: "Arbeten",
     navAbout: "Om mig",
     talk: "Hör av dig",
-    available: "Tillgänglig för utvalda projekt — 2025",
-    heroA: "Mjukvara, byggd med",
-    heroB: "avsikt.",
+    available: "TILLGÄNGLIG FRÅN SEPTEMBER 2027",
+    heroA: "Behöver ni en",
+    heroB: "Utvecklare?",
     intro:
-      "Jag heter Mara — en produkt- och gränssnittsutvecklare som förvandlar komplexa system till gränssnitt som känns självklara, genomtänkta och noggrant utformade in i minsta detalj.",
+      "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
     documentsLabel: "Dokument",
-    selectedWork: "Utvalda arbeten",
+    selectedWork: "Portfölj",
     open: "Öppna",
-    aboutLabel: "(a) Om mig",
+    aboutLabel: "OM MIG",
     portraitAlt: "Mara Voss vid sitt skrivbord",
-    practice: "(b) Arbetssättet",
-    aboutTitle:
-      "Jag bygger de tysta delarna av mjukvara — gränssnitten som får produkter att kännas genomtänkta.",
+    practice: "PRAKTISKT",
+    aboutTitle: "Jag bygger och underhåller webblösningar",
     aboutBody:
-      "I åtta år har jag arbetat i skärningspunkten mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
-    stats: ["År av leveranser", "Lanserade produkter", "Designsystem"],
-    msgLabel: "(c) Skriv ett meddelande",
-    msgTitle: "Berätta vad du bygger.",
-    msgBody: "Några rader om ditt projekt räcker gott — jag återkommer inom ett par dagar.",
+      "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
+    stats: ["ÅRS ERFARENHET", "Lanserade produkter", "SYSTEM"],
+    msgLabel: "SKICKA ETT MEDDELANDE",
+    msgTitle: "Hör av dig",
+    msgBody: "Vad är det som händer? Dela med dig vad du tänker eller säg till om jag kan hjälpa till med något.",
     name: "Namn",
     namePh: "Ditt namn",
     email: "E-post",
@@ -161,7 +160,7 @@ function Index() {
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-6 lg:px-12">
           <a href="/" className="font-display text-lg font-extrabold tracking-tight">
-            Mara Voss<span className="text-brand">.</span>
+            George Schedvin<span className="text-brand">.</span>
           </a>
           <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-[0.14em] sm:gap-8">
             <a href="#work" className="transition-colors hover:text-brand">
