@@ -160,7 +160,7 @@ function Index() {
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-6 lg:px-12">
           <a href="/" className="font-display text-lg font-extrabold tracking-tight">
-            Mara Voss<span className="text-brand">.</span>
+            George Schedvin<span className="text-brand">.</span>
           </a>
           <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-[0.14em] sm:gap-8">
             <a href="#work" className="transition-colors hover:text-brand">
