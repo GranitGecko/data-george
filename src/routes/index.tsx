@@ -192,11 +192,11 @@ function Index() {
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
       <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-6 lg:px-12">
-          <a href="/" className="font-display text-lg font-extrabold tracking-tight">
+        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-5 sm:px-6 lg:px-12">
+          <a href="/" className="shrink-0 whitespace-nowrap font-display text-sm font-extrabold tracking-tight sm:text-base lg:text-lg">
             George Schedvin<span className="text-brand">.</span>
           </a>
-          <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-[0.14em] sm:gap-8">
+          <nav className="flex items-center gap-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-8 sm:text-xs sm:tracking-[0.14em]">
             <a href="#work" className="transition-colors hover:text-brand">
               {c.navWork}
             </a>
@@ -299,46 +299,43 @@ function Index() {
           </span>
         </div>
         <p className="mt-4 max-w-[56ch] text-ink/70 text-pretty">{c.skillsIntro}</p>
-        <div className="mt-10 grid grid-cols-1 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-0">
+        <div className="relative mt-10 grid grid-cols-1 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-0">
+          <span
+            aria-hidden="true"
+            className="absolute top-[22px] hidden h-px bg-brand/25 lg:left-[calc((100%-4.5rem)/8)] lg:right-[calc((100%-4.5rem)/8)] lg:block"
+          />
           {skills.map((s, i) => {
             const Icon = s.icon;
             const last = i === skills.length - 1;
             return (
-              <div key={s.en.title} className="relative flex items-start gap-4 lg:block">
-                <div className="relative shrink-0">
-                  <span className="grid size-11 place-items-center rounded-full border border-brand/30 bg-soft text-brand">
-                    <Icon size={18} aria-hidden="true" />
-                  </span>
-                  {!last && (
-                    <>
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-1/2 top-11 -bottom-8 w-px bg-brand/25 md:hidden"
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-11 -right-6 top-[22px] hidden h-px bg-brand/25 lg:block"
-                      />
-                    </>
-                  )}
-                </div>
-                <div className="min-w-0 pt-1 lg:pt-6">
-                  <h3 className="font-display text-lg font-bold tracking-tight md:text-xl">
-                    {lang === "en" ? s.en.title : s.sv.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-ink/60 text-pretty">
-                    {lang === "en" ? s.en.line : s.sv.line}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {s.chips[lang].map((chip) => (
-                      <span
-                        key={chip}
-                        className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/60"
-                      >
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
+              <div
+                key={s.en.title}
+                className="relative flex flex-col items-center text-center"
+              >
+                <span className="relative z-10 grid size-11 place-items-center rounded-full border border-brand/30 bg-soft text-brand">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
+                {!last && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-8 left-1/2 h-8 w-px -translate-x-1/2 bg-brand/25 md:hidden"
+                  />
+                )}
+                <h3 className="mt-4 font-display text-lg font-bold tracking-tight md:text-xl">
+                  {lang === "en" ? s.en.title : s.sv.title}
+                </h3>
+                <p className="mt-1 max-w-[26ch] text-sm text-ink/60 text-pretty">
+                  {lang === "en" ? s.en.line : s.sv.line}
+                </p>
+                <div className="mt-3 flex flex-wrap justify-center gap-2">
+                  {s.chips[lang].map((chip) => (
+                    <span
+                      key={chip}
+                      className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/60"
+                    >
+                      {chip}
+                    </span>
+                  ))}
                 </div>
               </div>
             );
