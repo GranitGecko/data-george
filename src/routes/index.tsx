@@ -36,8 +36,8 @@ const t = {
     documentsLabel: "Documents",
     selectedWork: "Portfolio",
     skillsKicker: "SKILLS",
-    skillsTitle: "The common thread",
-    skillsIntro: "One click follows the same path through the whole system.",
+    skillsTitle: "Egenskaper / Kunskaper",
+    skillsIntro: "\n",
     open: "Open",
     aboutLabel: "ABOUT",
     portraitAlt: "Mara Voss at her desk",
@@ -61,7 +61,7 @@ const t = {
     contactLabel: "CONTACT",
     contactA: "Have a project in mind?",
     contactB: "",
-    footer: "Mara Voss — Interface Engineer",
+    footer: "GEORGE SCHEDVIN — UTVECKLARE",
     projects: [
       { title: "Lumen Design System", meta: "Design tooling · 2024", tag: "Figma plugin" },
       { title: "Field — Data Platform", meta: "Product interface · 2023", tag: "Web app" },
@@ -81,8 +81,8 @@ const t = {
     documentsLabel: "Dokument",
     selectedWork: "Portfölj",
     skillsKicker: "KOMPETENS",
-    skillsTitle: "Den röda tråden",
-    skillsIntro: "Ett klick följer samma väg genom hela systemet.",
+    skillsTitle: "Egenskaper / Kunskaper",
+    skillsIntro: "\n",
     open: "Öppna",
     aboutLabel: "OM MIG",
     portraitAlt: "Mara Voss vid sitt skrivbord",
@@ -105,7 +105,7 @@ const t = {
     contactLabel: "(d) Kontakt",
     contactA: "Har du ett projekt på gång?",
     contactB: "Låt oss bygga det.",
-    footer: "Mara Voss — Gränssnittsutvecklare",
+    footer: "GEORGE SCHEDVIN — UTVECKLARE",
     projects: [
       { title: "Lumen Design System", meta: "Designverktyg · 2024", tag: "Figma-plugin" },
       { title: "Field — Dataplattform", meta: "Produktgränssnitt · 2023", tag: "Webbapp" },
@@ -493,7 +493,7 @@ function Index() {
       <footer className="border-t border-paper/15 bg-ink text-paper">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/50 lg:px-12">
           <span>{c.footer}</span>
-          <span>© 2025</span>
+          <span>© 2026</span>
         </div>
       </footer>
     </div>
