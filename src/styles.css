@@ -4,20 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -134,23 +120,23 @@
 
 /* Soft Editorial Grotesk — portfolio palette */
 :root {
-  --ink: oklch(0.198 0.011 80);
-  --paper: oklch(0.945 0.013 90);
-  --brand: oklch(0.65 0.19 38);
-  --brand-deep: oklch(0.57 0.19 38);
-  --soft: oklch(0.975 0.008 95);
-  --line: oklch(0.198 0.011 80 / 0.15);
-  --panel: oklch(0.198 0.011 80);
-  --panel-fg: oklch(0.945 0.013 90);
+  --ink: #1f1f1f;          /* Main text */
+  --paper: #f5f1e8;        /* Main background */
+  --brand: #e86f3d;        /* Accent color */
+  --brand-deep: #c9562b;   /* Darker accent */
+  --soft: #faf8f3;         /* Soft background */
+  --line: #1f1f1f26;       /* Borders */
+  --panel: #1f1f1f;        /* Dark panels */
+  --panel-fg: #f5f1e8;     /* Text on panels */
 }
 
 .dark {
-  --ink: oklch(0.93 0.012 90);
-  --paper: oklch(0.18 0.01 80);
-  --soft: oklch(0.23 0.01 80);
-  --line: oklch(0.93 0.012 90 / 0.14);
-  --panel: oklch(0.13 0.008 80);
-  --panel-fg: oklch(0.93 0.012 90);
+  --ink: #f5f1e8;
+  --paper: #1f1f1f;
+  --soft: #292929;
+  --line: #f5f1e826;
+  --panel: #111111;
+  --panel-fg: #f5f1e8;
 }
 
 html {
