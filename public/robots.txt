@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://info-sparkle-quest-01.lovable.app/sitemap.xml
