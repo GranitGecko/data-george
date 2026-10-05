@@ -6,14 +6,14 @@ import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "George Schedvin — Web Developer" },
+      { title: "George S — Web Developer" },
       {
         name: "description",
         content:
-          "Portfolio of George Schedvin, a web developer working with React, AWS, SQL and Stripe integrations.",
+          "Portfolio of George S, a web developer working with React, AWS, SQL and Stripe integrations.",
       },
-      { property: "og:title", content: "George Schedvin — Web Developer" },
-      { property: "og:description", content: "Need a developer? Portfolio of George Schedvin." },
+      { property: "og:title", content: "George S — Web Developer" },
+      { property: "og:description", content: "Need a developer? Portfolio of George S." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -40,7 +40,7 @@ const t = {
     skillsIntro: "\n",
     open: "Open",
     aboutLabel: "ABOUT",
-    portraitAlt: "Portrait of George Schedvin",
+    portraitAlt: "Portrait of George S",
     practice: "PRACTICAL",
     aboutTitle:
       "I build and maintain websystems",
@@ -56,7 +56,7 @@ const t = {
     contactLabel: "CONTACT",
     contactA: "Have a project in mind?",
     contactB: "",
-    footer: "GEORGE SCHEDVIN — UTVECKLARE",
+    footer: "GEORGE S — UTVECKLARE",
     projects: [
       { title: "Lumen Design System", meta: "Design tooling · 2024", tag: "Figma plugin" },
       { title: "Field — Data Platform", meta: "Product interface · 2023", tag: "Web app" },
@@ -80,7 +80,7 @@ const t = {
     skillsIntro: "\n",
     open: "Öppna",
     aboutLabel: "OM MIG",
-    portraitAlt: "Porträtt av George Schedvin",
+    portraitAlt: "Porträtt av George S",
     practice: "PRAKTISKT",
     aboutTitle: "Jag bygger och underhåller webblösningar",
     aboutBody:
@@ -95,7 +95,7 @@ const t = {
     contactLabel: "(d) Kontakt",
     contactA: "Har du ett projekt på gång?",
     contactB: "Låt oss bygga det.",
-    footer: "GEORGE SCHEDVIN — UTVECKLARE",
+    footer: "GEORGE S — UTVECKLARE",
     projects: [
       { title: "Lumen Design System", meta: "Designverktyg · 2024", tag: "Figma-plugin" },
       { title: "Field — Dataplattform", meta: "Produktgränssnitt · 2023", tag: "Webbapp" },
@@ -108,7 +108,7 @@ const t = {
 const statValues = ["4+", "82+", "6"];
 
 const documents = [
-  { href: "/files/cv.pdf", en: "CV — George Schedvin", sv: "CV — George Schedvin" },
+  { href: "/files/cv.pdf", en: "CV — George S", sv: "CV — George S" },
   {
     href: "/files/reference-letters.pdf",
     en: "Reference letters",
@@ -212,7 +212,7 @@ function Index() {
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-5 sm:px-6 lg:px-12">
           <a href="/" className="shrink-0 whitespace-nowrap font-display text-sm font-extrabold tracking-tight sm:text-base lg:text-lg">
-            George Schedvin<span className="text-brand">.</span>
+            George S<span className="text-brand">.</span>
           </a>
           <nav className="flex items-center gap-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-8 sm:text-xs sm:tracking-[0.14em]">
             {navLinks.map((l) => (
