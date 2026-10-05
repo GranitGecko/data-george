@@ -1,0 +1,8 @@
+Setup Node
+Install dependencies
+Build
+  npm run build
+Setup Pages
+Upload
+  ./dist
+Deploy
