@@ -1,19 +1,19 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
-import { Cloud, Code2, CreditCard, Database } from "lucide-react";
+import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mara Voss — Software Developer & Interface Engineer" },
+      { title: "George Schedvin — Web Developer" },
       {
         name: "description",
         content:
-          "Portfolio of Mara Voss, a product & interface engineer building calm, considered software.",
+          "Portfolio of George Schedvin, a web developer working with React, AWS, SQL and Stripe integrations.",
       },
-      { property: "og:title", content: "Mara Voss — Software Developer" },
-      { property: "og:description", content: "Software, made with intention." },
+      { property: "og:title", content: "George Schedvin — Web Developer" },
+      { property: "og:description", content: "Need a developer? Portfolio of George Schedvin." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -40,24 +40,19 @@ const t = {
     skillsIntro: "\n",
     open: "Open",
     aboutLabel: "ABOUT",
-    portraitAlt: "Mara Voss at her desk",
+    portraitAlt: "Portrait of George Schedvin",
     practice: "PRACTICAL",
     aboutTitle:
       "I build and maintain websystems",
     aboutBody:
       "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
     stats: ["Years shipping", "Products launched", "Design systems"],
-    msgLabel: "WRITE A MESSAGE",
-    msgTitle: "Lets reach out",
-    msgBody: "Tell me what's up, let me know your thoughts or if I can help you with anything.",
-    name: "Name",
-    namePh: "Your name",
-    email: "Email",
-    message: "Message",
-    messagePh: "What are you working on?",
-    formNote: "Opens your email app with the message ready to send",
-    send: "Send message",
-    subject: "Project inquiry from",
+    cta: "Let's talk",
+    darkMode: "Dark mode",
+    lightMode: "Light mode",
+    cookieTitle: "Cookies",
+    cookieText: "This site uses anonymous visitor stats, no tracking cookies.",
+    cookieOk: "Got it",
     contactLabel: "CONTACT",
     contactA: "Have a project in mind?",
     contactB: "",
@@ -85,23 +80,18 @@ const t = {
     skillsIntro: "\n",
     open: "Öppna",
     aboutLabel: "OM MIG",
-    portraitAlt: "Mara Voss vid sitt skrivbord",
+    portraitAlt: "Porträtt av George Schedvin",
     practice: "PRAKTISKT",
     aboutTitle: "Jag bygger och underhåller webblösningar",
     aboutBody:
       "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
     stats: ["ÅRS ERFARENHET", "Lanserade produkter", "SYSTEM"],
-    msgLabel: "SKICKA ETT MEDDELANDE",
-    msgTitle: "Hör av dig",
-    msgBody: "Vad är det som händer? Dela med dig vad du tänker eller säg till om jag kan hjälpa till med något.",
-    name: "Namn",
-    namePh: "Ditt namn",
-    email: "E-post",
-    message: "Meddelande",
-    messagePh: "Vad arbetar du med?",
-    formNote: "Öppnar din e-postapp med meddelandet redo att skickas",
-    send: "Skicka meddelande",
-    subject: "Projektförfrågan från",
+    cta: "Hör av dig",
+    darkMode: "Mörkt läge",
+    lightMode: "Ljust läge",
+    cookieTitle: "Cookies",
+    cookieText: "Sidan använder anonym besöksstatistik, inga spårningscookies.",
+    cookieOk: "Okej",
     contactLabel: "(d) Kontakt",
     contactA: "Har du ett projekt på gång?",
     contactB: "Låt oss bygga det.",
@@ -118,7 +108,7 @@ const t = {
 const statValues = ["4+", "82+", "6"];
 
 const documents = [
-  { href: "/files/cv.pdf", en: "CV — Mara Voss", sv: "CV — Mara Voss" },
+  { href: "/files/cv.pdf", en: "CV — George Schedvin", sv: "CV — George Schedvin" },
   {
     href: "/files/reference-letters.pdf",
     en: "Reference letters",
@@ -160,13 +150,20 @@ const skills = [
 
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [dark, setDark] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [showCookies, setShowCookies] = useState(false);
+  const [active, setActive] = useState("");
   const c = t[lang];
 
   useEffect(() => {
     const saved = localStorage.getItem("lang");
     if (saved === "sv" || saved === "en") setLang(saved);
     else if (navigator.language.toLowerCase().startsWith("sv")) setLang("sv");
+    setDark(document.documentElement.classList.contains("dark"));
+    setShowCookies(localStorage.getItem("cookies") !== "ok");
+    const timer = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -178,36 +175,66 @@ function Index() {
     localStorage.setItem("lang", l);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // Smooth scroll + short "pulse" on the clicked nav link
+  const goTo = (e: MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`${c.subject} ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
-    window.location.href = `mailto:hello@maravoss.dev?subject=${subject}&body=${body}`;
+    setActive(hash);
+    document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+    history.replaceState(null, "", hash);
   };
 
-  const inputCls =
-    "border-b border-line bg-transparent py-2 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-brand";
-  const labelCls = "font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50";
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
+
+  const acceptCookies = () => {
+    localStorage.setItem("cookies", "ok");
+    setShowCookies(false);
+  };
+
+  const navLinks = [
+    { hash: "#work", label: c.navWork },
+    { hash: "#about", label: c.navAbout },
+    { hash: "#contact", label: c.talk },
+  ];
 
   return (
     <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
-      <header className="sticky top-0 z-50 bg-paper/85 backdrop-blur-sm">
+      {loading && (
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-paper" aria-label="Loading">
+          <span className="size-10 animate-spin rounded-full border-2 border-brand/25 border-t-brand" />
+        </div>
+      )}
+
+      <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-5 sm:px-6 lg:px-12">
           <a href="/" className="shrink-0 whitespace-nowrap font-display text-sm font-extrabold tracking-tight sm:text-base lg:text-lg">
             George Schedvin<span className="text-brand">.</span>
           </a>
           <nav className="flex items-center gap-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] sm:gap-8 sm:text-xs sm:tracking-[0.14em]">
-            <a href="#work" className="transition-colors hover:text-brand">
-              {c.navWork}
-            </a>
-            <a href="#about" className="transition-colors hover:text-brand">
-              {c.navAbout}
-            </a>
-            <a href="#contact" className="transition-colors hover:text-brand">
-              {c.talk}
-            </a>
+            {navLinks.map((l) => (
+              <a
+                key={l.hash + active}
+                href={l.hash}
+                onClick={(e) => goTo(e, l.hash)}
+                className={`nav-link ${active === l.hash ? "is-active" : ""}`}
+              >
+                {l.label}
+              </a>
+            ))}
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={dark ? c.lightMode : c.darkMode}
+              className="grid size-8 place-items-center rounded-full text-ink/60 transition-colors hover:text-brand"
+            >
+              {dark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
             <div
               role="group"
               aria-label="Language"
@@ -243,6 +270,13 @@ function Index() {
             {c.intro}
           </p>
         </div>
+        <a
+          href="#contact"
+          onClick={(e) => goTo(e, "#contact")}
+          className="mt-8 inline-flex animate-[rise_0.7s_var(--ease-rise)_both] items-center gap-2 rounded-full bg-brand px-7 py-4 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-all [animation-delay:240ms] hover:gap-4 hover:bg-brand-deep"
+        >
+          {c.cta} <span aria-hidden="true">→</span>
+        </a>
       </section>
 
       <section id="work" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
@@ -380,71 +414,9 @@ function Index() {
         </div>
       </section>
 
-      <section id="message" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
-          <div className="md:col-span-5">
-            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-              {c.msgLabel}
-            </span>
-            <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance md:text-4xl">
-              {c.msgTitle}
-            </h2>
-            <p className="mt-4 max-w-[40ch] text-ink/70 text-pretty">{c.msgBody}</p>
-          </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:col-span-7">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <label className="flex flex-col gap-2">
-                <span className={labelCls}>{c.name}</span>
-                <input
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder={c.namePh}
-                  className={inputCls}
-                />
-              </label>
-              <label className="flex flex-col gap-2">
-                <span className={labelCls}>{c.email}</span>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="you@company.com"
-                  className={inputCls}
-                />
-              </label>
-            </div>
-            <label className="flex flex-col gap-2">
-              <span className={labelCls}>{c.message}</span>
-              <textarea
-                required
-                rows={5}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder={c.messagePh}
-                className={`resize-none ${inputCls}`}
-              />
-            </label>
-            <div className="flex items-center justify-between gap-4">
-              <span className="max-w-[32ch] font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40">
-                {c.formNote}
-              </span>
-              <button
-                type="submit"
-                className="rounded-full bg-brand px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
-              >
-                {c.send}
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-ink text-paper">
+      <section id="contact" className="scroll-mt-16 bg-panel text-panel-fg">
         <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-12 lg:py-28">
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/50">
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-panel-fg/50">
             {c.contactLabel}
           </span>
           <h2 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance">
@@ -457,14 +429,14 @@ function Index() {
             >
               hello@maravoss.dev
             </a>
-            <div className="flex gap-8 font-mono text-xs uppercase tracking-[0.14em] text-paper/70">
+            <div className="flex gap-8 font-mono text-xs uppercase tracking-[0.14em] text-panel-fg/70">
               <a href="#" className="transition-colors hover:text-brand">GitHub</a>
               <a href="#" className="transition-colors hover:text-brand">LinkedIn</a>
               <a href="#" className="transition-colors hover:text-brand">Read.cv</a>
             </div>
           </div>
-          <div className="mt-14 border-t border-paper/15 pt-6">
-            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-paper/40">
+          <div className="mt-14 border-t border-panel-fg/15 pt-6">
+            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-panel-fg/40">
               {c.documentsLabel}
             </span>
             <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.14em]">
@@ -474,13 +446,13 @@ function Index() {
                   href={d.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2 text-paper/70 transition-colors hover:text-brand"
+                  className="group inline-flex items-center gap-2 text-panel-fg/70 transition-colors hover:text-brand"
                 >
-                  <span aria-hidden="true" className="text-paper/40 group-hover:text-brand">
+                  <span aria-hidden="true" className="text-panel-fg/40 group-hover:text-brand">
                     ↓
                   </span>
                   {lang === "en" ? d.en : d.sv}
-                  <span aria-hidden="true" className="text-[10px] text-paper/35">
+                  <span aria-hidden="true" className="text-[10px] text-panel-fg/35">
                     PDF
                   </span>
                 </a>
@@ -490,12 +462,29 @@ function Index() {
         </div>
       </section>
 
-      <footer className="border-t border-paper/15 bg-ink text-paper">
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/50 lg:px-12">
+      <footer className="border-t border-panel-fg/15 bg-panel text-panel-fg">
+        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-panel-fg/50 lg:px-12">
           <span>{c.footer}</span>
           <span>© 2026</span>
         </div>
       </footer>
+
+      {showCookies && (
+        <div
+          role="dialog"
+          aria-label={c.cookieTitle}
+          className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl animate-[rise_0.5s_var(--ease-rise)_both] flex-col gap-3 rounded-2xl border border-line bg-soft p-5 shadow-lg sm:flex-row sm:items-center"
+        >
+          <p className="flex-1 text-sm text-ink/70">{c.cookieText}</p>
+          <button
+            type="button"
+            onClick={acceptCookies}
+            className="rounded-full bg-brand px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
+          >
+            {c.cookieOk}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

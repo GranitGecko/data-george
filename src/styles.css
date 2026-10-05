@@ -140,6 +140,70 @@
   --brand-deep: oklch(0.57 0.19 38);
   --soft: oklch(0.975 0.008 95);
   --line: oklch(0.198 0.011 80 / 0.15);
+  --panel: oklch(0.198 0.011 80);
+  --panel-fg: oklch(0.945 0.013 90);
+}
+
+.dark {
+  --ink: oklch(0.93 0.012 90);
+  --paper: oklch(0.18 0.01 80);
+  --soft: oklch(0.23 0.01 80);
+  --line: oklch(0.93 0.012 90 / 0.14);
+  --panel: oklch(0.13 0.008 80);
+  --panel-fg: oklch(0.93 0.012 90);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
+/* Nav links: underline slides in on hover, pops on click */
+.nav-link {
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-rise);
+}
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--brand);
+}
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.nav-link.is-active {
+  animation: nav-pop 0.4s var(--ease-rise);
+}
+
+@keyframes nav-pop {
+  40% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .nav-link.is-active {
+    animation: none;
+  }
 }
 
 @theme inline {
@@ -149,6 +213,8 @@
   --color-brand-deep: var(--brand-deep);
   --color-soft: var(--soft);
   --color-line: var(--line);
+  --color-panel: var(--panel);
+  --color-panel-fg: var(--panel-fg);
   --font-display: "Bricolage Grotesque", sans-serif;
   --font-sans: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
