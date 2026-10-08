@@ -28,7 +28,7 @@ const t = {
     navWork: "Work",
     navAbout: "About",
     talk: "Let's talk",
-    available: "AVAILABLE FROM SEPTEMBER 2027",
+    available: "AVAILABLE FOR WORK",
     heroA: "Need a",
     heroB: "Developer?",
     intro:
@@ -46,7 +46,7 @@ const t = {
       "I build and maintain websystems",
     aboutBody:
       "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
-    stats: ["Years shipping", "Products launched", "Design systems"],
+    stats: ["Years shipping", "Products launched"],
     cta: "Let's talk",
     darkMode: "Dark mode",
     lightMode: "Light mode",
@@ -68,7 +68,7 @@ const t = {
     navWork: "Arbeten",
     navAbout: "Om mig",
     talk: "Hör av dig",
-    available: "TILLGÄNGLIG FRÅN SEPTEMBER 2027",
+    available: "TILLGÄNGLIG FÖR ARBETE",
     heroA: "Behöver ni en",
     heroB: "Utvecklare?",
     intro:
@@ -85,14 +85,14 @@ const t = {
     aboutTitle: "Jag bygger och underhåller webblösningar",
     aboutBody:
       "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
-    stats: ["ÅRS ERFARENHET", "Lanserade produkter", "SYSTEM"],
+    stats: ["ÅRS ERFARENHET", "Lanserade produkter"],
     cta: "Hör av dig",
     darkMode: "Mörkt läge",
     lightMode: "Ljust läge",
     cookieTitle: "Cookies",
     cookieText: "Sidan använder anonym besöksstatistik, inga spårningscookies.",
     cookieOk: "Okej",
-    contactLabel: "(d) Kontakt",
+    contactLabel: "Kontakt",
     contactA: "Har du ett projekt på gång?",
     contactB: "Låt oss bygga det.",
     footer: "GEORGE S — UTVECKLARE",
@@ -116,8 +116,13 @@ const documents = [
   },
   {
     href: "/files/grades.pdf",
-    en: "Grades & transcript",
-    sv: "Betyg och studieförteckning",
+    en: "Grades",
+    sv: "Betyg",
+  },
+  {
+    href: "/files/europass-exam-sv+en.pdf",
+    en: "Europass Qualification supplement",
+    sv: "Europass Kvalifikationstillägg",
   },
 ];
 
@@ -328,7 +333,7 @@ function Index() {
           <h2 className="font-display text-3xl font-extrabold tracking-tight">
             {c.skillsTitle}
           </h2>
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
+          <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
             {c.skillsKicker}
           </span>
         </div>
@@ -424,15 +429,15 @@ function Index() {
           </h2>
           <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
             <a
-              href="mailto:hello@maravoss.dev"
+              href="mailto:george.schedvin@gmail.com"
               className="rounded-full bg-brand px-7 py-4 font-mono text-sm text-soft transition-colors hover:bg-brand-deep sm:text-base"
             >
-              hello@maravoss.dev
+              george.schedvin@gmail.com
             </a>
             <div className="flex gap-8 font-mono text-xs uppercase tracking-[0.14em] text-panel-fg/70">
-              <a href="#" className="transition-colors hover:text-brand">GitHub</a>
-              <a href="#" className="transition-colors hover:text-brand">LinkedIn</a>
-              <a href="#" className="transition-colors hover:text-brand">Read.cv</a>
+              <a href="https://github.com/GranitGecko" className="transition-colors hover:text-brand">GitHub</a>
+              <a href="https://se.linkedin.com/in/george-s-63b56924a" className="transition-colors hover:text-brand">LinkedIn</a>
+              {/* <a href="#" className="transition-colors hover:text-brand">Read.cv</a> */}
             </div>
           </div>
           <div className="mt-14 border-t border-panel-fg/15 pt-6">
