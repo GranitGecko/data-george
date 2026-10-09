@@ -11,5 +11,5 @@
 - [x] Nav link click animation
 - [x] Dark mode + toggle
 - [x] GitHub export — user pushes manually; kept code simple in current stack
-- [ ] Theme choices beneath header, opened from Design: Original, Windows 2000, Dorfic, VS Code
-- [ ] Whole-page styling and code-like text; verify theme switching and persistence
+- [x] Theme choices beneath header, opened from Design: Original, Windows 2000, Dorfic, VS Code
+- [x] Whole-page styling and code-like text; verify theme switching and persistence
