@@ -27,7 +27,7 @@ export function DesignSwitcher({ design, onChange, onClose, lang }) {
   );
 }
 
-export function CodeText({ enabled, name, children, compact = false }) {
+export function CodeText({ enabled, name = "", children, compact = false }) {
   if (!enabled) return children;
   if (compact) return <><span className="code-symbol">{name ? `${name}("` : '"'}</span><span className="code-string">{children}</span><span className="code-symbol">{name ? '")' : '"'}</span></>;
   return (
