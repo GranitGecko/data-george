@@ -228,3 +228,118 @@ section[id] {
     color: var(--color-foreground);
   }
 }
+
+/* Alternative designs share the same content and semantic palette. */
+.portfolio-page {
+  --design-shadow: none;
+  --design-highlight: var(--soft);
+  --design-lowlight: var(--line);
+  --code-keyword: var(--brand);
+  --code-function: var(--ink);
+  --code-string: var(--ink);
+  --code-symbol: var(--ink);
+}
+.design-switcher { background: var(--soft); border-bottom: 1px solid var(--line); }
+.design-switcher-inner { max-width: 1400px; margin: auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.design-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.design-option { color: var(--ink); border: 1px solid var(--line); background: var(--paper); border-radius: 4px; font-family: inherit; }
+.design-option:hover, .design-option[aria-pressed="true"] { background: var(--brand); color: var(--soft); border-color: var(--brand); }
+.design-close { color: var(--ink); flex-shrink: 0; }
+.design-close:hover { background: var(--paper); }
+.designs-open section[id] { scroll-margin-top: 9rem; }
+.editor-tab { display: flex; align-items: center; gap: 10px; background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 10px 24px; font: 12px var(--font-mono); color: var(--ink); }
+.editor-tab span { color: var(--brand); font-size: 9px; }
+.code-block { display: block; font-size: 16px; line-height: 1.8; font-weight: 400; text-align: left; }
+.code-declaration, .code-return { display: block; }
+.code-return { padding-left: 1.5em; overflow-wrap: anywhere; }
+.code-keyword { color: var(--code-keyword); }
+.code-function { color: var(--code-function); }
+.code-string { color: var(--code-string); }
+.code-symbol { color: var(--code-symbol); }
+
+/* Windows 2000: grey chrome, blue title bars and bevelled controls. */
+[data-design="windows"] {
+  --ink: #171717; --paper: #d4d0c8; --soft: #ffffff;
+  --brand: #000080; --brand-deep: #00005c; --line: #808080;
+  --panel: #d4d0c8; --panel-fg: #171717;
+  --design-highlight: #ffffff; --design-lowlight: #808080;
+  --design-shadow: inset 1px 1px var(--design-highlight), inset -1px -1px var(--design-lowlight);
+  font-family: Tahoma, Arial, sans-serif;
+}
+[data-design="windows"] :is(.font-display, .font-mono, .font-sans) { font-family: Tahoma, Arial, sans-serif; letter-spacing: 0; }
+[data-design="windows"] .portfolio-header { background: var(--brand); color: var(--soft); backdrop-filter: none; border: 2px outset var(--paper); }
+[data-design="windows"] .portfolio-header > div:first-child :is(a, button, span) { color: var(--soft); }
+[data-design="windows"] .design-switcher { color: var(--ink); background: var(--paper); }
+[data-design="windows"] .design-option { box-shadow: var(--design-shadow); border: 1px solid var(--design-lowlight); border-radius: 0; }
+[data-design="windows"] h1 { font-size: 64px; line-height: 1.1; max-width: 900px; }
+[data-design="windows"] :is(h2, h3) { letter-spacing: 0; }
+[data-design="windows"] h2 { font-size: 30px; line-height: 1.2; }
+[data-design="windows"] section { border-bottom: 2px groove var(--design-highlight); }
+[data-design="windows"] :is(a.rounded-full, button.rounded-full, span.rounded-full) { border-radius: 0; box-shadow: var(--design-shadow); }
+[data-design="windows"] #work li { border-bottom-style: dotted; }
+[data-design="windows"] img { border: 3px inset var(--paper); border-radius: 0; }
+
+/* Dorfic: clean industrial typography, orange surfaces, black rules. */
+[data-design="dorfic"] {
+  --ink: #1c1c1c; --paper: #f0f0ec; --soft: #ffffff;
+  --brand: #e94710; --brand-deep: #bb3507; --line: #1c1c1c;
+  --panel: #e94710; --panel-fg: #171717;
+  --design-shadow: 4px 4px 0 var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.dark [data-design="dorfic"] { --paper: #222222; --ink: #f0f0ec; --soft: #313131; --line: #f0f0ec; --panel-fg: #171717; }
+[data-design="dorfic"] :is(.font-display, .font-sans) { font-family: Arial, Helvetica, sans-serif; letter-spacing: 0; }
+[data-design="dorfic"] .portfolio-header { background: var(--paper); backdrop-filter: none; border-bottom: 2px solid var(--ink); }
+[data-design="dorfic"] section:first-of-type { padding-top: 72px; padding-bottom: 44px; }
+[data-design="dorfic"] h1 { text-transform: uppercase; font-size: 112px; line-height: 0.95; max-width: 1100px; }
+[data-design="dorfic"] h1 span { display: block; }
+[data-design="dorfic"] h2 { text-transform: uppercase; font-size: 40px; line-height: 1.1; }
+[data-design="dorfic"] :is(a.rounded-full, button.rounded-full, span.rounded-full, .design-option) { border-radius: 0; border: 1px solid var(--ink); }
+[data-design="dorfic"] #work li { border-bottom: 2px solid var(--ink); }
+[data-design="dorfic"] #work li:hover { background: var(--brand); }
+[data-design="dorfic"] #work li:hover :is(a, span) { color: var(--ink); }
+[data-design="dorfic"] img { border-radius: 0; filter: grayscale(1); }
+[data-design="dorfic"] #contact h2 { font-size: 64px; }
+[data-design="dorfic"] #contact a.rounded-full { background: var(--ink); color: var(--paper); }
+
+/* VS Code: editor chrome and readable, syntax-coloured content. */
+[data-design="vscode"] {
+  --ink: #d4d4d4; --paper: #1e1e1e; --soft: #252526;
+  --brand: #3794ff; --brand-deep: #1671c9; --line: #454545;
+  --panel: #181818; --panel-fg: #d4d4d4;
+  --code-keyword: #c586c0; --code-function: #dcdcaa;
+  --code-string: #ce9178; --code-symbol: #d4d4d4;
+  font-family: var(--font-mono);
+}
+[data-design="vscode"] :is(.font-display, .font-sans, .font-mono) { font-family: var(--font-mono); letter-spacing: 0; }
+[data-design="vscode"] .portfolio-header { background: var(--soft); backdrop-filter: none; }
+[data-design="vscode"] :is(h1, h2, h3) { font-size: 20px; line-height: 1.6; font-weight: 400; overflow-wrap: anywhere; }
+[data-design="vscode"] h1 .code-block { font-size: 28px; }
+[data-design="vscode"] section { border-left: 1px solid var(--line); }
+[data-design="vscode"] :is(p, a, span) { letter-spacing: 0; }
+[data-design="vscode"] #work li { grid-template-columns: 1fr auto; }
+[data-design="vscode"] #work li > span { display: none; }
+[data-design="vscode"] #work li a { font-size: 16px; overflow-wrap: anywhere; }
+[data-design="vscode"] :is(a.rounded-full, button.rounded-full, span.rounded-full, img) { border-radius: 2px; }
+[data-design="vscode"] #skills .code-symbol, [data-design="vscode"] #skills .code-string { white-space: normal; }
+[data-design="vscode"] #contact a.rounded-full { color: var(--ink); background: var(--soft); border: 1px solid var(--line); overflow-wrap: anywhere; }
+[data-design="vscode"] .portfolio-header nav { font-size: 10px; gap: 14px; }
+[data-design="vscode"].designs-open section[id] { scroll-margin-top: 11rem; }
+
+@media (max-width: 640px) {
+  .design-switcher-inner { padding: 10px 16px; align-items: flex-start; }
+  .design-options { gap: 6px; }
+  .design-option { font-size: 11px; padding: 6px 8px; }
+  [data-design="windows"] h1 { font-size: 42px; }
+  [data-design="dorfic"] h1 { font-size: 40px; overflow-wrap: anywhere; }
+  [data-design="dorfic"] h2, [data-design="dorfic"] #contact h2 { font-size: 32px; }
+  [data-design="vscode"] h1 .code-block { font-size: 20px; }
+  [data-design="vscode"] .portfolio-header > div:first-child { flex-wrap: wrap; height: auto; min-height: 64px; padding-top: 10px; padding-bottom: 10px; gap: 10px; }
+  [data-design="vscode"] .portfolio-header nav { order: 3; width: 100%; justify-content: space-between; gap: 6px; }
+  [data-design="vscode"] #contact a.rounded-full { padding: 12px; font-size: 11px; }
+  [data-design="vscode"] footer > div { height: auto; min-height: 64px; flex-wrap: wrap; gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+  .designs-open section[id] { scroll-margin-top: 12rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-page *, .portfolio-page *::after { animation: none !important; transition: none !important; }
+}

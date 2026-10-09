@@ -2,6 +2,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
 import { Button } from "@/components/ui/button";
+import { CodeText, DesignSwitcher, designs } from "@/components/design-switcher";
 import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -161,6 +162,9 @@ function Index() {
   const [showCookies, setShowCookies] = useState(false);
   const [active, setActive] = useState("");
   const [designOpened, setDesignOpened] = useState(false);
+  const [design, setDesign] = useState("original");
+  const [designUsed, setDesignUsed] = useState(false);
+  const codeMode = design === "vscode";
   const c = t[lang];
 
   useEffect(() => {
@@ -169,6 +173,12 @@ function Index() {
     else if (navigator.language.toLowerCase().startsWith("sv")) setLang("sv");
     setDark(document.documentElement.classList.contains("dark"));
     setShowCookies(localStorage.getItem("cookies") !== "ok");
+    const savedDesign = localStorage.getItem("portfolio-design");
+    if (designs.some((item) => item.id === savedDesign) && savedDesign) {
+      setDesign(savedDesign);
+      setDesignOpened(savedDesign !== "original");
+      setDesignUsed(savedDesign !== "original");
+    }
     const timer = setTimeout(() => setLoading(false), 400);
     return () => clearTimeout(timer);
   }, []);
@@ -202,6 +212,17 @@ function Index() {
     setShowCookies(false);
   };
 
+  const changeDesign = (next: string) => {
+    setDesign(next);
+    localStorage.setItem("portfolio-design", next);
+  };
+
+  const openDesigns = () => {
+    setDesignOpened((previous) => !previous);
+    setDesignUsed(true);
+    window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  };
+
   const navLinks = [
     { hash: "#work", label: c.navWork },
     { hash: "#about", label: c.navAbout },
@@ -209,14 +230,14 @@ function Index() {
   ];
 
   return (
-    <div className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft">
+    <div data-design={design} className={`portfolio-page ${designOpened ? "designs-open" : ""} min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand selection:text-soft`}>
       {loading && (
         <div className="fixed inset-0 z-[100] grid place-items-center bg-paper" aria-label="Loading">
           <span className="size-10 animate-spin rounded-full border-2 border-brand/25 border-t-brand" />
         </div>
       )}
 
-      <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-sm">
+      <header className="portfolio-header sticky top-0 z-40 bg-paper/85 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between border-b border-line px-5 sm:px-6 lg:px-12">
           <a href="/" className="shrink-0 whitespace-nowrap font-display text-sm font-extrabold tracking-tight sm:text-base lg:text-lg">
             George S<span className="text-brand">.</span>
@@ -229,7 +250,7 @@ function Index() {
                 onClick={(e) => goTo(e, l.hash)}
                 className={`nav-link ${active === l.hash ? "is-active" : ""}`}
               >
-                {l.label}
+                <CodeText enabled={codeMode} name="goTo" compact>{l.label}</CodeText>
               </a>
             ))}
           </nav>
@@ -263,18 +284,20 @@ function Index() {
             </div>
           </div>
         </div>
+        {designOpened && <DesignSwitcher design={design} onChange={changeDesign} onClose={() => setDesignOpened(false)} lang={lang} />}
+        {codeMode && <div className="editor-tab"><Code2 size={14} aria-hidden="true" /> george.portfolio.jsx <span>●</span></div>}
       </header>
 
       <section className="mx-auto max-w-[1400px] px-6 pt-16 pb-2 lg:px-12 lg:pt-24">
         <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 animate-[rise_0.5s_var(--ease-rise)_both]">
-          <span className="size-2 rounded-full bg-brand"></span> {c.available}
+          <span className="size-2 rounded-full bg-brand"></span> <CodeText enabled={codeMode} name="status" compact>{c.available}</CodeText>
         </div>
         <h1 className="mt-6 animate-[rise_0.7s_var(--ease-rise)_both] font-display text-[clamp(3.4rem,12vw,10rem)] leading-[0.92] font-extrabold tracking-[-0.03em] text-balance [animation-delay:80ms]">
-          {c.heroA} <span className="text-brand">{c.heroB}</span>
+          {codeMode ? <CodeText enabled name="George">{`${c.heroA} ${c.heroB}`}</CodeText> : <>{c.heroA} <span className="text-brand">{c.heroB}</span></>}
         </h1>
         <div className="mt-10 grid animate-[rise_0.7s_var(--ease-rise)_both] grid-cols-1 items-end gap-6 [animation-delay:160ms] md:grid-cols-12">
           <p className="max-w-[46ch] text-lg text-ink/70 text-pretty md:col-span-7 md:text-xl">
-            {c.intro}
+            <CodeText enabled={codeMode} name="introduction">{c.intro}</CodeText>
           </p>
         </div>
         <a
@@ -282,13 +305,13 @@ function Index() {
           onClick={(e) => goTo(e, "#contact")}
           className="mt-8 inline-flex animate-[rise_0.7s_var(--ease-rise)_both] items-center gap-2 rounded-full bg-brand px-7 py-4 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-all [animation-delay:240ms] hover:gap-4 hover:bg-brand-deep"
         >
-          {c.cta} <span aria-hidden="true">→</span>
+          <CodeText enabled={codeMode} name="contact" compact>{c.cta}</CodeText> <span aria-hidden="true">→</span>
         </a>
       </section>
 
       <section id="work" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight">{c.selectedWork}</h2>
+          <h2 className="font-display text-3xl font-extrabold tracking-tight"><CodeText enabled={codeMode} name="portfolio" compact>{c.selectedWork}</CodeText></h2>
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
             2022 — 2027
           </span>
@@ -307,10 +330,10 @@ function Index() {
                   href="#work"
                   className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl"
                 >
-                  {i === 3 && designOpened ? "design..." : p.title}
+                  <CodeText enabled={codeMode} name="project" compact>{i === 3 && designUsed ? "design..." : p.title}</CodeText>
                 </a>
                 <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  {i === 3 && designOpened ? "2026" : p.meta}
+                  <CodeText enabled={codeMode} compact>{i === 3 && designUsed ? new Date().getFullYear().toString() : p.meta}</CodeText>
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -322,7 +345,9 @@ function Index() {
                     type="button"
                     variant="ghost"
                     size="icon"
-                    onClick={() => setDesignOpened(true)}
+                    onClick={openDesigns}
+                    aria-expanded={designOpened}
+                    aria-controls="design-switcher"
                     aria-label={`${c.open} ${p.title}`}
                     className="size-9 rounded-full border border-ink/20 text-ink hover:border-brand hover:bg-brand hover:text-soft"
                   >
@@ -346,7 +371,7 @@ function Index() {
       <section id="skills" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
           <h2 className="font-display text-3xl font-extrabold tracking-tight">
-            {c.skillsTitle}
+              <CodeText enabled={codeMode} name="skills" compact>{c.skillsTitle}</CodeText>
           </h2>
           <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
             {c.skillsKicker}
@@ -376,10 +401,10 @@ function Index() {
                   />
                 )}
                 <h3 className="mt-4 font-display text-lg font-bold tracking-tight md:text-xl">
-                  {lang === "en" ? s.en.title : s.sv.title}
+                  <CodeText enabled={codeMode} name="skill" compact>{lang === "en" ? s.en.title : s.sv.title}</CodeText>
                 </h3>
                 <p className="mt-1 max-w-[26ch] text-sm text-ink/60 text-pretty">
-                  {lang === "en" ? s.en.line : s.sv.line}
+                  <CodeText enabled={codeMode} compact>{lang === "en" ? s.en.line : s.sv.line}</CodeText>
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-2">
                   {s.chips[lang].map((chip) => (
@@ -387,7 +412,7 @@ function Index() {
                       key={chip}
                       className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/60"
                     >
-                      {chip}
+                      <CodeText enabled={codeMode} compact>{chip}</CodeText>
                     </span>
                   ))}
                 </div>
@@ -401,7 +426,7 @@ function Index() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-              {c.aboutLabel}
+              <CodeText enabled={codeMode} name="section" compact>{c.aboutLabel}</CodeText>
             </span>
             <img
               src={portrait}
@@ -414,18 +439,18 @@ function Index() {
           </div>
           <div className="flex flex-col justify-center md:col-span-7">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
-              {c.practice}
+              <CodeText enabled={codeMode} compact>{c.practice}</CodeText>
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance md:text-5xl">
-              {c.aboutTitle}
+              <CodeText enabled={codeMode} name="about">{c.aboutTitle}</CodeText>
             </h2>
-            <p className="mt-6 max-w-[52ch] text-lg text-ink/70 text-pretty">{c.aboutBody}</p>
+            <p className="mt-6 max-w-[52ch] text-lg text-ink/70 text-pretty"><CodeText enabled={codeMode} name="experience">{c.aboutBody}</CodeText></p>
             <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
               {c.stats.map((label, i) => (
                 <div key={label}>
                   <div className="font-display text-3xl font-extrabold">{statValues[i]}</div>
                   <div className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                    {label}
+                    <CodeText enabled={codeMode} compact>{label}</CodeText>
                   </div>
                 </div>
               ))}
@@ -437,17 +462,17 @@ function Index() {
       <section id="contact" className="scroll-mt-16 bg-panel text-panel-fg">
         <div className="mx-auto max-w-[1400px] px-6 py-20 lg:px-12 lg:py-28">
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-panel-fg/50">
-            {c.contactLabel}
+            <CodeText enabled={codeMode} name="section" compact>{c.contactLabel}</CodeText>
           </span>
           <h2 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95] font-extrabold tracking-[-0.02em] text-balance">
-            {c.contactA} <span className="text-brand">{c.contactB}</span>
+            {codeMode ? <CodeText enabled name="contact">{`${c.contactA} ${c.contactB}`.trim()}</CodeText> : <>{c.contactA} <span className="text-brand">{c.contactB}</span></>}
           </h2>
           <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
             <a
               href="mailto:george.schedvin@gmail.com"
               className="rounded-full bg-brand px-7 py-4 font-mono text-sm text-soft transition-colors hover:bg-brand-deep sm:text-base"
             >
-              george.schedvin@gmail.com
+              <CodeText enabled={codeMode} name="mailto" compact>george.schedvin@gmail.com</CodeText>
             </a>
             <div className="flex gap-8 font-mono text-xs uppercase tracking-[0.14em] text-panel-fg/70">
               <a href="https://github.com/GranitGecko" className="transition-colors hover:text-brand">GitHub</a>
@@ -457,7 +482,7 @@ function Index() {
           </div>
           <div className="mt-14 border-t border-panel-fg/15 pt-6">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-panel-fg/40">
-              {c.documentsLabel}
+              <CodeText enabled={codeMode} name="documents" compact>{c.documentsLabel}</CodeText>
             </span>
             <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.14em]">
               {documents.map((d) => (
@@ -471,7 +496,7 @@ function Index() {
                   <span aria-hidden="true" className="text-panel-fg/40 group-hover:text-brand">
                     ↓
                   </span>
-                  {lang === "en" ? d.en : d.sv}
+                  <CodeText enabled={codeMode} name="download" compact>{lang === "en" ? d.en : d.sv}</CodeText>
                   <span aria-hidden="true" className="text-[10px] text-panel-fg/35">
                     PDF
                   </span>
@@ -484,7 +509,7 @@ function Index() {
 
       <footer className="border-t border-panel-fg/15 bg-panel text-panel-fg">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 font-mono text-[11px] uppercase tracking-[0.14em] text-panel-fg/50 lg:px-12">
-          <span>{c.footer}</span>
+          <span><CodeText enabled={codeMode} compact>{c.footer}</CodeText></span>
           <span>© 2026</span>
         </div>
       </footer>
@@ -495,7 +520,7 @@ function Index() {
           aria-label={c.cookieTitle}
           className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl animate-[rise_0.5s_var(--ease-rise)_both] flex-col gap-3 rounded-2xl border border-line bg-soft p-5 shadow-lg sm:flex-row sm:items-center"
         >
-          <p className="flex-1 text-sm text-ink/70">{c.cookieText}</p>
+          <p className="flex-1 text-sm text-ink/70"><CodeText enabled={codeMode} compact>{c.cookieText}</CodeText></p>
           <button
             type="button"
             onClick={acceptCookies}
