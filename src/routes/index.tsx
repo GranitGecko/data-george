@@ -11,8 +11,7 @@ export const Route = createFileRoute("/")({
       { title: "George S — Web Developer" },
       {
         name: "description",
-        content:
-          "Portfolio of George S, a web developer working with React, AWS, SQL and Stripe integrations.",
+        content: "Portfolio of George S, a web developer working with React, AWS, SQL and Stripe integrations.",
       },
       { property: "og:title", content: "George S — Web Developer" },
       { property: "og:description", content: "Need a developer? Portfolio of George S." },
@@ -33,8 +32,7 @@ const t = {
     available: "AVAILABLE FOR WORK",
     heroA: "Need a",
     heroB: "Developer?",
-    intro:
-      "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
+    intro: "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
     documentsLabel: "Documents",
     selectedWork: "Portfolio",
     design: "Take a look at the header",
@@ -45,10 +43,8 @@ const t = {
     aboutLabel: "ABOUT",
     portraitAlt: "Portrait of George S",
     practice: "PRACTICAL",
-    aboutTitle:
-      "I build and maintain websystems",
-    aboutBody:
-      "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
+    aboutTitle: "I build and maintain websystems",
+    aboutBody: "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
     stats: ["Years shipping", "Products launched"],
     cta: "Let's talk",
     darkMode: "Dark mode",
@@ -74,8 +70,7 @@ const t = {
     available: "TILLGÄNGLIG FÖR ARBETE",
     heroA: "Behöver ni en",
     heroB: "Utvecklare?",
-    intro:
-      "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
+    intro: "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
     documentsLabel: "Dokument",
     selectedWork: "Portfölj",
     design: "Kika i Headern",
@@ -87,8 +82,7 @@ const t = {
     portraitAlt: "Porträtt av George S",
     practice: "PRAKTISKT",
     aboutTitle: "Jag bygger och underhåller webblösningar",
-    aboutBody:
-      "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
+    aboutBody: "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
     stats: ["ÅRS ERFARENHET", "Lanserade produkter"],
     cta: "Hör av dig",
     darkMode: "Mörkt läge",
@@ -169,61 +163,80 @@ function Index() {
   const codeMode = design === "vscode";
   const c = t[lang];
 
-  useEffect(() => {
-    const saved = localStorage.getItem("lang");
-    if (saved === "sv" || saved === "en") setLang(saved);
-    else if (navigator.language.toLowerCase().startsWith("sv")) setLang("sv");
-    setDark(document.documentElement.classList.contains("dark"));
-    setShowCookies(localStorage.getItem("cookies") !== "ok");
+  useEffect(function () {
+
+    const savedLang = localStorage.getItem("lang");
     const savedDesign = localStorage.getItem("portfolio-design");
-    if (designs.some((item) => item.id === savedDesign) && savedDesign) {
-      setDesign(savedDesign);
-      setDesignOpened(savedDesign !== "original");
-      setDesignUsed(savedDesign !== "original");
+
+    if (savedLang == "sv" || savedLang == "en") {
+      setLang(savedLang);
+    } else if (navigator.language.startsWith("sv")) {
+      setLang("sv");
     }
-    const timer = setTimeout(() => setLoading(false), 400);
-    return () => clearTimeout(timer);
+
+    setDark(document.documentElement.classList.contains("dark"));
+    setShowCookies(localStorage.getItem("cookies") != "ok");
+
+    if (savedDesign) {
+      setDesign(savedDesign);
+
+      if (savedDesign != "original") {
+        setDesignOpened(true);
+        setDesignUsed(true);
+      }
+    }
+
+    setTimeout(function () {
+      setLoading(false);
+    }, 400);
+
   }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const switchLang = (l: Lang) => {
+  function switchLang(l: Lang) {
     setLang(l);
     localStorage.setItem("lang", l);
-  };
+  }
 
   // Smooth scroll + short "pulse" on the clicked nav link
-  const goTo = (e: MouseEvent<HTMLAnchorElement>, hash: string) => {
+  function goTo(e: MouseEvent<HTMLAnchorElement>, hash: string) {
     e.preventDefault();
     setActive(hash);
     document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
     history.replaceState(null, "", hash);
-  };
+  }
 
-  const toggleTheme = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
+  function toggleTheme() {
+    if (dark) {
+      setDark(false);
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      setDark(true);
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
 
-  const acceptCookies = () => {
+  function acceptCookies() {
     localStorage.setItem("cookies", "ok");
     setShowCookies(false);
-  };
+  }
 
-  const changeDesign = (next: string) => {
+  function changeDesign(next: string) {
     setDesign(next);
     localStorage.setItem("portfolio-design", next);
-  };
+  }
 
-  const openDesigns = () => {
-    setDesignOpened((previous) => !previous);
+  function openDesigns() {
+    setDesignOpened(!designOpened);
     setDesignUsed(true);
-    window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-  };
+
+    window.scrollTo(0, 0);
+  }
 
   const navLinks = [
     { hash: "#work", label: c.navWork },
@@ -257,19 +270,10 @@ function Index() {
             ))}
           </nav>
           <div className="flex items-center gap-3 sm:gap-4">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={dark ? c.lightMode : c.darkMode}
-              className="grid size-8 place-items-center rounded-full text-ink/60 transition-colors hover:text-brand"
-            >
+            <button type="button" onClick={toggleTheme} aria-label={dark ? c.lightMode : c.darkMode} className="grid size-8 place-items-center rounded-full text-ink/60 transition-colors hover:text-brand">
               {dark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
-            <div
-              role="group"
-              aria-label="Language"
-              className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.14em]"
-            >
+            <div role="group" aria-label="Language" className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.14em]">
               {(["en", "sv"] as Lang[]).map((l, i) => (
                 <span key={l} className="flex items-center gap-1">
                   {i > 0 && <span className="text-ink/30">/</span>}
@@ -302,11 +306,7 @@ function Index() {
             <CodeText enabled={codeMode} name="introduction">{c.intro}</CodeText>
           </p>
         </div>
-        <a
-          href="#contact"
-          onClick={(e) => goTo(e, "#contact")}
-          className="mt-8 inline-flex animate-[rise_0.7s_var(--ease-rise)_both] items-center gap-2 rounded-full bg-brand px-7 py-4 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-all [animation-delay:240ms] hover:gap-4 hover:bg-brand-deep"
-        >
+        <a href="#contact" onClick={(e) => goTo(e, "#contact")} className="mt-8 inline-flex animate-[rise_0.7s_var(--ease-rise)_both] items-center gap-2 rounded-full bg-brand px-7 py-4 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-all [animation-delay:240ms] hover:gap-4 hover:bg-brand-deep">
           <CodeText enabled={codeMode} name="contact" compact>{c.cta}</CodeText> <span aria-hidden="true">→</span>
         </a>
       </section>
@@ -426,14 +426,7 @@ function Index() {
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
               <CodeText enabled={codeMode} name="section" compact>{c.aboutLabel}</CodeText>
             </span>
-            <img
-              src={portrait}
-              alt={c.portraitAlt}
-              width={1024}
-              height={1280}
-              loading="lazy"
-              className="mt-4 aspect-[4/5] w-full rounded-[min(1vw,12px)] bg-soft object-cover outline-1 -outline-offset-1 outline-black/5"
-            />
+            <img src={portrait} alt={c.portraitAlt} width={1024} height={1280} loading="lazy" className="mt-4 aspect-[4/5] w-full rounded-[min(1vw,12px)] bg-soft object-cover outline-1 -outline-offset-1 outline-black/5" />
           </div>
           <div className="flex flex-col justify-center md:col-span-7">
             <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-brand">
@@ -484,20 +477,10 @@ function Index() {
             </span>
             <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.14em]">
               {documents.map((d) => (
-                <a
-                  key={d.href}
-                  href={d.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-2 text-panel-fg/70 transition-colors hover:text-brand"
-                >
-                  <span aria-hidden="true" className="text-panel-fg/40 group-hover:text-brand">
-                    ↓
-                  </span>
+                <a key={d.href} href={d.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 text-panel-fg/70 transition-colors hover:text-brand">
+                  <span aria-hidden="true" className="text-panel-fg/40 group-hover:text-brand">↓</span>
                   <CodeText enabled={codeMode} name="download" compact>{lang === "en" ? d.en : d.sv}</CodeText>
-                  <span aria-hidden="true" className="text-[10px] text-panel-fg/35">
-                    PDF
-                  </span>
+                  <span aria-hidden="true" className="text-[10px] text-panel-fg/35">PDF</span>
                 </a>
               ))}
             </div>
@@ -512,18 +495,11 @@ function Index() {
         </div>
       </footer>
 
+      {/* Got any cookies? */}
       {showCookies && (
-        <div
-          role="dialog"
-          aria-label={c.cookieTitle}
-          className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl animate-[rise_0.5s_var(--ease-rise)_both] flex-col gap-3 rounded-2xl border border-line bg-soft p-5 shadow-lg sm:flex-row sm:items-center"
-        >
+        <div role="dialog" aria-label={c.cookieTitle} className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl animate-[rise_0.5s_var(--ease-rise)_both] flex-col gap-3 rounded-2xl border border-line bg-soft p-5 shadow-lg sm:flex-row sm:items-center">
           <p className="flex-1 text-sm text-ink/70"><CodeText enabled={codeMode} compact>{c.cookieText}</CodeText></p>
-          <button
-            type="button"
-            onClick={acceptCookies}
-            className="rounded-full bg-brand px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep"
-          >
+          <button type="button" onClick={acceptCookies} className="rounded-full bg-brand px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] text-soft transition-colors hover:bg-brand-deep">
             {c.cookieOk}
           </button>
         </div>
