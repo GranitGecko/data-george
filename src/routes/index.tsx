@@ -1,6 +1,7 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
+import { Button } from "@/components/ui/button";
 import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -61,7 +62,7 @@ const t = {
       { title: "Lumen Design System", meta: "Concept project · 2024", tag: "Figma plugin" },
       { title: "Field — Data Platform", meta: "Concept project · 2023", tag: "Web app" },
       { title: "Tessera Mobile", meta: "Concept project · 2023", tag: "iOS + Android" },
-      { title: "Cadence Analytics", meta: "Concept project · 2022", tag: "Analytics" },
+      { title: "Design", meta: "2026", tag: "Design" },
     ],
   },
   sv: {
@@ -100,7 +101,7 @@ const t = {
       { title: "Lumen Design System", meta: "Stockprojekt · 2024", tag: "Figma-plugin" },
       { title: "Field — Dataplattform", meta: "Stockprojekt · 2023", tag: "Webbapp" },
       { title: "Tessera Mobile", meta: "Stockprojekt · 2023", tag: "iOS + Android" },
-      { title: "Cadence Analytics", meta: "Stockprojekt · 2022", tag: "Analys" },
+      { title: "Design", meta: "2026", tag: "Design" },
     ],
   },
 };
@@ -159,6 +160,7 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [showCookies, setShowCookies] = useState(false);
   const [active, setActive] = useState("");
+  const [designOpened, setDesignOpened] = useState(false);
   const c = t[lang];
 
   useEffect(() => {
@@ -305,16 +307,28 @@ function Index() {
                   href="#work"
                   className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl"
                 >
-                  {p.title}
+                  {i === 3 && designOpened ? "design..." : p.title}
                 </a>
                 <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  {p.meta}
+                  {i === 3 && designOpened ? "2026" : p.meta}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40 md:inline">
                   {p.tag}
                 </span>
+                {i === 3 ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setDesignOpened(true)}
+                    aria-label={`${c.open} ${p.title}`}
+                    className="size-9 rounded-full border border-ink/20 text-ink hover:border-brand hover:bg-brand hover:text-soft"
+                  >
+                    →
+                  </Button>
+                ) : (
                 <a
                   href="#work"
                   aria-label={`${c.open} ${p.title}`}
@@ -322,6 +336,7 @@ function Index() {
                 >
                   →
                 </a>
+                )}
               </div>
             </li>
           ))}
