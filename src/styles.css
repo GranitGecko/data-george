@@ -324,14 +324,14 @@ section[id] {
 [data-design="vscode"] #skills .code-symbol, [data-design="vscode"] #skills .code-string { white-space: normal; }
 [data-design="vscode"] #contact a.rounded-full { color: var(--ink); background: var(--soft); border: 1px solid var(--line); overflow-wrap: anywhere; }
 [data-design="vscode"] .portfolio-header nav { font-size: 10px; gap: 14px; }
-[data-design="vscode"] .designs-open section[id] { scroll-margin-top: 11rem; }
+[data-design="vscode"].designs-open section[id] { scroll-margin-top: 11rem; }
 
 @media (max-width: 640px) {
   .design-switcher-inner { padding: 10px 16px; align-items: flex-start; }
   .design-options { gap: 6px; }
   .design-option { font-size: 11px; padding: 6px 8px; }
   [data-design="windows"] h1 { font-size: 42px; }
-  [data-design="dorfic"] h1 { font-size: 52px; }
+  [data-design="dorfic"] h1 { font-size: 40px; overflow-wrap: anywhere; }
   [data-design="dorfic"] h2, [data-design="dorfic"] #contact h2 { font-size: 32px; }
   [data-design="vscode"] h1 .code-block { font-size: 20px; }
   [data-design="vscode"] .portfolio-header > div:first-child { flex-wrap: wrap; height: auto; min-height: 64px; padding-top: 10px; padding-bottom: 10px; gap: 10px; }
