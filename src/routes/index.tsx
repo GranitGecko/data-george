@@ -37,6 +37,7 @@ const t = {
       "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
     documentsLabel: "Documents",
     selectedWork: "Portfolio",
+    design: "Take a look at the header",
     skillsKicker: "SKILLS",
     skillsTitle: "Egenskaper",
     skillsIntro: "\n",
@@ -77,6 +78,7 @@ const t = {
       "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
     documentsLabel: "Dokument",
     selectedWork: "Portfölj",
+    design: "Kika i Headern",
     skillsKicker: "KOMPETENS",
     skillsTitle: "Egenskaper",
     skillsIntro: "\n",
@@ -318,19 +320,15 @@ function Index() {
         </div>
         <ul className="mt-4">
           {c.projects.map((p, i) => (
-            <li
-              key={i}
-              className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line py-6 sm:gap-8"
-            >
+            <li key={i} className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line py-6 sm:gap-8">
               <span className="font-mono text-xs text-ink/40 transition-colors group-hover:text-brand">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div className="flex flex-col">
-                <a
-                  href="#work"
-                  className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl"
-                >
-                  <CodeText enabled={codeMode} name="project" compact>{i === 3 && designUsed ? "design..." : p.title}</CodeText>
+                <a className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl">
+                  <CodeText enabled={codeMode} name="project" compact>
+                    {i === 3 && designUsed ? c.design : p.title}
+                  </CodeText>
                 </a>
                 <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
                   <CodeText enabled={codeMode} compact>{i === 3 && designUsed ? new Date().getFullYear().toString() : p.meta}</CodeText>
@@ -354,13 +352,13 @@ function Index() {
                     →
                   </Button>
                 ) : (
-                <a
-                  href="#work"
-                  aria-label={`${c.open} ${p.title}`}
-                  className="grid size-9 place-items-center rounded-full border border-ink/20 text-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-soft"
-                >
-                  →
-                </a>
+                  <a
+                    href="#work"
+                    aria-label={`${c.open} ${p.title}`}
+                    className="grid size-9 place-items-center rounded-full border border-ink/20 text-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-soft"
+                  >
+                    →
+                  </a>
                 )}
               </div>
             </li>
@@ -371,7 +369,7 @@ function Index() {
       <section id="skills" className="mx-auto max-w-[1400px] px-6 py-14 lg:px-12">
         <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
           <h2 className="font-display text-3xl font-extrabold tracking-tight">
-              <CodeText enabled={codeMode} name="skills" compact>{c.skillsTitle}</CodeText>
+            <CodeText enabled={codeMode} name="skills" compact>{c.skillsTitle}</CodeText>
           </h2>
           <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
             {c.skillsKicker}
