@@ -17,7 +17,6 @@ function Index() {
   const [active, setActive] = useState("");
   const [designOpened, setDesignOpened] = useState(false);
   const [design, setDesign] = useState("original");
-  const [designUsed, setDesignUsed] = useState(false);
   const codeMode = design === "vscode";
   const c = t[lang];
 
@@ -40,7 +39,6 @@ function Index() {
 
       if (savedDesign != "original") {
         setDesignOpened(true);
-        setDesignUsed(true);
       }
     }
 
@@ -91,7 +89,6 @@ function Index() {
 
   function openDesigns() {
     setDesignOpened(!designOpened);
-    setDesignUsed(true);
 
     window.scrollTo(0, 0);
   }
