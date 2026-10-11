@@ -2,106 +2,10 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
 import { Button } from "@/components/ui/button";
-import { CodeText, DesignSwitcher, designs } from "@/components/design-switcher";
-import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
+import { CodeText, DesignSwitcher } from "@/components/design-switcher";
+import { Code2, Moon, Sun } from "lucide-react";
+import { t, statValues, documents, skills } from "@/content";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "George S — Web Developer" },
-      {
-        name: "description",
-        content: "Portfolio of George S, a web developer working with React, AWS, SQL and Stripe integrations.",
-      },
-      { property: "og:title", content: "George S — Web Developer" },
-      { property: "og:description", content: "Need a developer? Portfolio of George S." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: Index,
-});
-
-type Lang = "en" | "sv";
-
-const t = {
-  en: {
-    navWork: "Work",
-    navAbout: "About",
-    talk: "Let's talk",
-    available: "AVAILABLE FOR WORK",
-    heroA: "Need a",
-    heroB: "Developer?",
-    intro: "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
-    documentsLabel: "Documents",
-    selectedWork: "Portfolio",
-    design: "Take a look at the header",
-    skillsKicker: "SKILLS",
-    skillsTitle: "Egenskaper",
-    skillsIntro: "\n",
-    open: "Open",
-    aboutLabel: "ABOUT",
-    portraitAlt: "Portrait of George S",
-    practice: "PRACTICAL",
-    aboutTitle: "I build and maintain websystems",
-    aboutBody: "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
-    stats: ["Years shipping", "Products launched"],
-    cta: "Let's talk",
-    darkMode: "Dark mode",
-    lightMode: "Light mode",
-    cookieTitle: "Cookies",
-    cookieText: "This site uses anonymous visitor stats, no tracking cookies.",
-    cookieOk: "Got it",
-    contactLabel: "CONTACT",
-    contactA: "Have a project in mind?",
-    contactB: "",
-    footer: "GEORGE S — UTVECKLARE",
-    projects: [
-      { title: "Lumen Design System", meta: "Concept project · 2024", tag: "Figma plugin" },
-      { title: "Field — Data Platform", meta: "Concept project · 2023", tag: "Web app" },
-      { title: "Tessera Mobile", meta: "Concept project · 2023", tag: "iOS + Android" },
-      { title: "Design", meta: "2026", tag: "Design" },
-    ],
-  },
-  sv: {
-    navWork: "Arbeten",
-    navAbout: "Om mig",
-    talk: "Hör av dig",
-    available: "TILLGÄNGLIG FÖR ARBETE",
-    heroA: "Behöver ni en",
-    heroB: "Utvecklare?",
-    intro: "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
-    documentsLabel: "Dokument",
-    selectedWork: "Portfölj",
-    design: "Kika i Headern",
-    skillsKicker: "KOMPETENS",
-    skillsTitle: "Egenskaper",
-    skillsIntro: "\n",
-    open: "Öppna",
-    aboutLabel: "OM MIG",
-    portraitAlt: "Porträtt av George S",
-    practice: "PRAKTISKT",
-    aboutTitle: "Jag bygger och underhåller webblösningar",
-    aboutBody: "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
-    stats: ["ÅRS ERFARENHET", "Lanserade produkter"],
-    cta: "Hör av dig",
-    darkMode: "Mörkt läge",
-    lightMode: "Ljust läge",
-    cookieTitle: "Cookies",
-    cookieText: "Sidan använder anonym besöksstatistik, inga spårningscookies.",
-    cookieOk: "Okej",
-    contactLabel: "Kontakt",
-    contactA: "Har du ett projekt på gång?",
-    contactB: "Låt oss bygga det.",
-    footer: "GEORGE S — UTVECKLARE",
-    projects: [
-      { title: "Lumen Design System", meta: "Stockprojekt · 2024", tag: "Figma-plugin" },
-      { title: "Field — Dataplattform", meta: "Stockprojekt · 2023", tag: "Webbapp" },
-      { title: "Tessera Mobile", meta: "Stockprojekt · 2023", tag: "iOS + Android" },
-      { title: "Design", meta: "2026", tag: "Design" },
-    ],
-  },
-};
 
 const statValues = ["4+", "82+", "6"];
 
