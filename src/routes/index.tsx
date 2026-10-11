@@ -182,11 +182,11 @@ function Index() {
               <div className="flex flex-col">
                 <a className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl">
                   <CodeText enabled={codeMode} name="project" compact>
-                    {i === 3 && designUsed ? c.design : p.title}
+                    {i === 3 && designOpened ? c.design : p.title}
                   </CodeText>
                 </a>
                 <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  <CodeText enabled={codeMode} compact>{i === 3 && designUsed ? new Date().getFullYear().toString() : p.meta}</CodeText>
+                  <CodeText enabled={codeMode} compact>{i === 3 && designOpened ? new Date().getFullYear().toString() : p.meta}</CodeText>
                 </span>
               </div>
               <div className="flex items-center gap-3">
