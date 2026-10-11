@@ -2,8 +2,9 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import portrait from "@/assets/portrait.jpg";
 import { Button } from "@/components/ui/button";
-import { CodeText, DesignSwitcher, designs } from "@/components/design-switcher";
-import { Cloud, Code2, CreditCard, Database, Moon, Sun } from "lucide-react";
+import { CodeText, DesignSwitcher } from "@/components/design-switcher";
+import { Code2, Moon, Sun } from "lucide-react";
+import { t, statValues, documents, skills } from "@/content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,132 +25,6 @@ export const Route = createFileRoute("/")({
 
 type Lang = "en" | "sv";
 
-const t = {
-  en: {
-    navWork: "Work",
-    navAbout: "About",
-    talk: "Let's talk",
-    available: "AVAILABLE FOR WORK",
-    heroA: "Need a",
-    heroB: "Developer?",
-    intro: "Hi, I'm George, and I work as a web developer. I enjoy working with data, technical infrastructure, statistics, and mathematics.\n\nI also enjoy the human experience, especially the social and client-facing side.",
-    documentsLabel: "Documents",
-    selectedWork: "Portfolio",
-    design: "Take a look at the header",
-    skillsKicker: "SKILLS",
-    skillsTitle: "Egenskaper",
-    skillsIntro: "\n",
-    open: "Open",
-    aboutLabel: "ABOUT",
-    portraitAlt: "Portrait of George S",
-    practice: "PRACTICAL",
-    aboutTitle: "I build and maintain websystems",
-    aboutBody: "For four years I've worked at the seam between design and engineering, shipping design systems, data-heavy tools, and mobile products for teams that care about craft. My work lives in the details: spacing, motion, and the honest handling of every edge case.",
-    stats: ["Years shipping", "Products launched"],
-    cta: "Let's talk",
-    darkMode: "Dark mode",
-    lightMode: "Light mode",
-    cookieTitle: "Cookies",
-    cookieText: "This site uses anonymous visitor stats, no tracking cookies.",
-    cookieOk: "Got it",
-    contactLabel: "CONTACT",
-    contactA: "Have a project in mind?",
-    contactB: "",
-    footer: "GEORGE S — UTVECKLARE",
-    projects: [
-      { title: "Lumen Design System", meta: "Concept project · 2024", tag: "Figma plugin" },
-      { title: "Field — Data Platform", meta: "Concept project · 2023", tag: "Web app" },
-      { title: "Tessera Mobile", meta: "Concept project · 2023", tag: "iOS + Android" },
-      { title: "Design", meta: "2026", tag: "Design" },
-    ],
-  },
-  sv: {
-    navWork: "Arbeten",
-    navAbout: "Om mig",
-    talk: "Hör av dig",
-    available: "TILLGÄNGLIG FÖR ARBETE",
-    heroA: "Behöver ni en",
-    heroB: "Utvecklare?",
-    intro: "Hej, jag heter George och jag jobbar som en webbutvecklare. Jag uppskattar att jobba med data, teknisk infrastruktur, statistik och matematik. Jag uppskattar också den mänskliga sidan, speciellt det sociala när man kan jobba med klienter.",
-    documentsLabel: "Dokument",
-    selectedWork: "Portfölj",
-    design: "Kika i Headern",
-    skillsKicker: "KOMPETENS",
-    skillsTitle: "Egenskaper",
-    skillsIntro: "\n",
-    open: "Öppna",
-    aboutLabel: "OM MIG",
-    portraitAlt: "Porträtt av George S",
-    practice: "PRAKTISKT",
-    aboutTitle: "Jag bygger och underhåller webblösningar",
-    aboutBody: "I fyra år har jag jobbat och hoppat mellan design och utveckling, och levererat designsystem, datatunga verktyg och mobilprodukter för team som bryr sig om hantverket. Mitt arbete finns i detaljerna: avstånd, rörelse och en ärlig hantering av varje specialfall.",
-    stats: ["ÅRS ERFARENHET", "Lanserade produkter"],
-    cta: "Hör av dig",
-    darkMode: "Mörkt läge",
-    lightMode: "Ljust läge",
-    cookieTitle: "Cookies",
-    cookieText: "Sidan använder anonym besöksstatistik, inga spårningscookies.",
-    cookieOk: "Okej",
-    contactLabel: "Kontakt",
-    contactA: "Har du ett projekt på gång?",
-    contactB: "Låt oss bygga det.",
-    footer: "GEORGE S — UTVECKLARE",
-    projects: [
-      { title: "Lumen Design System", meta: "Stockprojekt · 2024", tag: "Figma-plugin" },
-      { title: "Field — Dataplattform", meta: "Stockprojekt · 2023", tag: "Webbapp" },
-      { title: "Tessera Mobile", meta: "Stockprojekt · 2023", tag: "iOS + Android" },
-      { title: "Design", meta: "2026", tag: "Design" },
-    ],
-  },
-};
-
-const statValues = ["4+", "82+", "6"];
-
-const documents = [
-  { href: "/files/cv.pdf", en: "CV — George S", sv: "CV — George S" },
-  {
-    href: "/files/reference-letters.pdf",
-    en: "Reference letters",
-    sv: "Rekommendationsbrev",
-  },
-  {
-    href: "/files/grades.pdf",
-    en: "Grades",
-    sv: "Betyg",
-  },
-  {
-    href: "/files/europass-exam-sv+en.pdf",
-    en: "Europass Qualification supplement",
-    sv: "Europass Kvalifikationstillägg",
-  },
-];
-
-const skills = [
-  {
-    icon: Code2,
-    chips: { en: ["React", "TypeScript", "JavaScript"], sv: ["React", "TypeScript", "JavaScript"] },
-    en: { title: "The interface", line: "Where the click begins." },
-    sv: { title: "Gränssnittet", line: "Där klicket börjar." },
-  },
-  {
-    icon: Database,
-    chips: { en: ["SQL", "Data modelling"], sv: ["SQL", "Datamodellering"] },
-    en: { title: "The data", line: "Where the answers live." },
-    sv: { title: "Datat", line: "Där svaren finns." },
-  },
-  {
-    icon: Cloud,
-    chips: { en: ["AWS", "Lambda", "S3"], sv: ["AWS", "Lambda", "S3"] },
-    en: { title: "The infrastructure", line: "Where it keeps running." },
-    sv: { title: "Infrastrukturen", line: "Där det hålls igång." },
-  },
-  {
-    icon: CreditCard,
-    chips: { en: ["Stripe", "Webhooks", "Payments"], sv: ["Stripe", "Betalväxlar", "Webhooks"] },
-    en: { title: "Integration & payment", line: "Where money and data move." },
-    sv: { title: "Integration & betalning", line: "Där pengar och data rör sig." },
-  },
-];
 
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
@@ -159,7 +34,6 @@ function Index() {
   const [active, setActive] = useState("");
   const [designOpened, setDesignOpened] = useState(false);
   const [design, setDesign] = useState("original");
-  const [designUsed, setDesignUsed] = useState(false);
   const codeMode = design === "vscode";
   const c = t[lang];
 
@@ -182,7 +56,6 @@ function Index() {
 
       if (savedDesign != "original") {
         setDesignOpened(true);
-        setDesignUsed(true);
       }
     }
 
@@ -233,7 +106,6 @@ function Index() {
 
   function openDesigns() {
     setDesignOpened(!designOpened);
-    setDesignUsed(true);
 
     window.scrollTo(0, 0);
   }
@@ -327,11 +199,11 @@ function Index() {
               <div className="flex flex-col">
                 <a className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl">
                   <CodeText enabled={codeMode} name="project" compact>
-                    {i === 3 && designUsed ? c.design : p.title}
+                    {i === 3 && designOpened ? c.design : p.title}
                   </CodeText>
                 </a>
                 <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  <CodeText enabled={codeMode} compact>{i === 3 && designUsed ? new Date().getFullYear().toString() : p.meta}</CodeText>
+                  <CodeText enabled={codeMode} compact>{i === 3 && designOpened ? new Date().getFullYear().toString() : p.meta}</CodeText>
                 </span>
               </div>
               <div className="flex items-center gap-3">
