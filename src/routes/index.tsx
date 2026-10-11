@@ -6,6 +6,23 @@ import { CodeText, DesignSwitcher } from "@/components/design-switcher";
 import { Code2, Moon, Sun } from "lucide-react";
 import { t, statValues, documents, skills } from "@/content";
 
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "George S — Web Developer" },
+      {
+        name: "description",
+        content: "Portfolio of George S, a web developer working with React, AWS, SQL and Stripe integrations.",
+      },
+      { property: "og:title", content: "George S — Web Developer" },
+      { property: "og:description", content: "Need a developer? Portfolio of George S." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: Index,
+});
+
 type Lang = "en" | "sv";
 
 
