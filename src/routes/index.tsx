@@ -6,54 +6,8 @@ import { CodeText, DesignSwitcher } from "@/components/design-switcher";
 import { Code2, Moon, Sun } from "lucide-react";
 import { t, statValues, documents, skills } from "@/content";
 
+type Lang = "en" | "sv";
 
-const statValues = ["4+", "82+", "6"];
-
-const documents = [
-  { href: "/files/cv.pdf", en: "CV — George S", sv: "CV — George S" },
-  {
-    href: "/files/reference-letters.pdf",
-    en: "Reference letters",
-    sv: "Rekommendationsbrev",
-  },
-  {
-    href: "/files/grades.pdf",
-    en: "Grades",
-    sv: "Betyg",
-  },
-  {
-    href: "/files/europass-exam-sv+en.pdf",
-    en: "Europass Qualification supplement",
-    sv: "Europass Kvalifikationstillägg",
-  },
-];
-
-const skills = [
-  {
-    icon: Code2,
-    chips: { en: ["React", "TypeScript", "JavaScript"], sv: ["React", "TypeScript", "JavaScript"] },
-    en: { title: "The interface", line: "Where the click begins." },
-    sv: { title: "Gränssnittet", line: "Där klicket börjar." },
-  },
-  {
-    icon: Database,
-    chips: { en: ["SQL", "Data modelling"], sv: ["SQL", "Datamodellering"] },
-    en: { title: "The data", line: "Where the answers live." },
-    sv: { title: "Datat", line: "Där svaren finns." },
-  },
-  {
-    icon: Cloud,
-    chips: { en: ["AWS", "Lambda", "S3"], sv: ["AWS", "Lambda", "S3"] },
-    en: { title: "The infrastructure", line: "Where it keeps running." },
-    sv: { title: "Infrastrukturen", line: "Där det hålls igång." },
-  },
-  {
-    icon: CreditCard,
-    chips: { en: ["Stripe", "Webhooks", "Payments"], sv: ["Stripe", "Betalväxlar", "Webhooks"] },
-    en: { title: "Integration & payment", line: "Where money and data move." },
-    sv: { title: "Integration & betalning", line: "Där pengar och data rör sig." },
-  },
-];
 
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
