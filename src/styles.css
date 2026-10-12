@@ -404,7 +404,7 @@ section[id] {
   --design-shadow: 4px 4px 0 var(--ink);
   font-family: Arial, Helvetica, sans-serif;
 }
-.dark [data-design="dorfic"] { --paper: #222222; --ink: #f0f0ec; --soft: #313131; --line: #f0f0ec; --panel-fg: #171717; }
+/* Dorfic ignores dark mode: its own palette always applies. */
 [data-design="dorfic"] :is(.font-display, .font-sans) { font-family: Arial, Helvetica, sans-serif; letter-spacing: 0; }
 [data-design="dorfic"] .portfolio-header { background: var(--paper); backdrop-filter: none; border-bottom: 2px solid var(--ink); }
 [data-design="dorfic"] section:first-of-type { padding-top: 72px; padding-bottom: 44px; }
