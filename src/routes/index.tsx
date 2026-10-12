@@ -48,7 +48,7 @@ function Index() {
       setLang("sv");
     }
 
-    setDark(document.documentElement.classList.contains("dark"));
+    setDark(localStorage.getItem("theme") == "dark" || (!localStorage.getItem("theme") && matchMedia("(prefers-color-scheme: dark)").matches));
     setShowCookies(localStorage.getItem("cookies") != "ok");
 
     if (savedDesign) {
@@ -68,6 +68,16 @@ function Index() {
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (dark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [dark]);
 
   function switchLang(l: Lang) {
     setLang(l);
