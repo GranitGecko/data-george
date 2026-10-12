@@ -105,9 +105,19 @@ function Index() {
   }
 
   function openDesigns() {
-    setDesignOpened(!designOpened);
+    if (design !== "original") {
+      changeDesign("original");
+      setDesignOpened(false);
+    } else {
+      setDesignOpened(!designOpened);
+    }
 
     window.scrollTo(0, 0);
+  }
+
+  function closeDesigns() {
+    changeDesign("original");
+    setDesignOpened(false);
   }
 
   const navLinks = [
@@ -142,9 +152,11 @@ function Index() {
             ))}
           </nav>
           <div className="flex items-center gap-3 sm:gap-4">
-            <button type="button" onClick={toggleTheme} aria-label={dark ? c.lightMode : c.darkMode} className="grid size-8 place-items-center rounded-full text-ink/60 transition-colors hover:text-brand">
-              {dark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
+            {design === "original" && (
+              <button type="button" onClick={toggleTheme} aria-label={dark ? c.lightMode : c.darkMode} className="grid size-8 place-items-center rounded-full text-ink/60 transition-colors hover:text-brand">
+                {dark ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            )}
             <div role="group" aria-label="Language" className="flex items-center gap-1 font-mono text-xs uppercase tracking-[0.14em]">
               {(["en", "sv"] as Lang[]).map((l, i) => (
                 <span key={l} className="flex items-center gap-1">
@@ -162,7 +174,7 @@ function Index() {
             </div>
           </div>
         </div>
-        {designOpened && <DesignSwitcher design={design} onChange={changeDesign} onClose={() => setDesignOpened(false)} lang={lang} />}
+        {designOpened && <DesignSwitcher design={design} onChange={changeDesign} onClose={closeDesigns} lang={lang} />}
         {codeMode && <div className="editor-tab"><Code2 size={14} aria-hidden="true" /> george.portfolio.jsx <span>●</span></div>}
       </header>
 
