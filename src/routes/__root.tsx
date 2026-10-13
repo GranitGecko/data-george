@@ -16,7 +16,6 @@ function NotFoundComponent() {
   );
 }
 
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`;
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
@@ -75,7 +74,6 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />
       </head>
       <body>
