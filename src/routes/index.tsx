@@ -213,50 +213,77 @@ function Index() {
           </span>
         </div>
         <ul className="mt-4">
-          {c.projects.map((p, i) => (
-            <li key={i} className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line py-6 sm:gap-8">
-              <span className="font-mono text-xs text-ink/40 transition-colors group-hover:text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="flex flex-col">
-                <a className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl">
-                  <CodeText enabled={codeMode} name="project" compact>
-                    {i === 3 && designOpened ? c.design : p.title}
-                  </CodeText>
-                </a>
-                <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  <CodeText enabled={codeMode} compact>{i === 3 && designOpened ? new Date().getFullYear().toString() : p.meta}</CodeText>
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40 md:inline">
-                  {p.tag}
-                </span>
-                {i === 3 ? (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={openDesigns}
-                    aria-expanded={designOpened}
-                    aria-controls="design-switcher"
-                    aria-label={`${c.open} ${p.title}`}
-                    className="size-9 rounded-full border border-ink/20 text-ink hover:border-brand hover:bg-brand hover:text-soft"
-                  >
-                    →
-                  </Button>
-                ) : (
-                  <a
-                    href="#work"
-                    aria-label={`${c.open} ${p.title}`}
-                    className="grid size-9 place-items-center rounded-full border border-ink/20 text-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-soft"
-                  >
-                    →
-                  </a>
-                )}
-              </div>
-            </li>
-          ))}
+
+{c.projects.map((p, i) => {
+  const isReservation = p.title === "Online Reservation System";
+  const projectUrl = isReservation
+    ? "https://granitgecko.github.io/Booking-system/"
+    : "#work";
+
+  return (
+    <li
+      key={i}
+      className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line py-6 sm:gap-8"
+    >
+      <span className="font-mono text-xs text-ink/40 transition-colors group-hover:text-brand">
+        {String(i + 1).padStart(2, "0")}
+      </span>
+
+      <div className="flex flex-col">
+        <a
+          href={projectUrl}
+          target={isReservation ? "_blank" : undefined}
+          rel={isReservation ? "noopener noreferrer" : undefined}
+          className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl"
+        >
+          <CodeText enabled={codeMode} name="project" compact>
+            {i === 3 && designOpened ? c.design : p.title}
+          </CodeText>
+        </a>
+
+        <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
+          <CodeText enabled={codeMode} compact>
+            {i === 3 && designOpened
+              ? new Date().getFullYear().toString()
+              : p.meta}
+          </CodeText>
+        </span>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span className="hidden font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40 md:inline">
+          {p.tag}
+        </span>
+
+        {i === 3 ? (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={openDesigns}
+            aria-expanded={designOpened}
+            aria-controls="design-switcher"
+            aria-label={`${c.open} ${p.title}`}
+            className="size-9 rounded-full border border-ink/20 text-ink hover:border-brand hover:bg-brand hover:text-soft"
+          >
+            →
+          </Button>
+        ) : (
+          <a
+            href={projectUrl}
+            target={isReservation ? "_blank" : undefined}
+            rel={isReservation ? "noopener noreferrer" : undefined}
+            aria-label={`${c.open} ${p.title}`}
+            className="grid size-9 place-items-center rounded-full border border-ink/20 text-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-soft"
+          >
+            →
+          </a>
+        )}
+      </div>
+    </li>
+  );
+})}
+
         </ul>
       </section>
 

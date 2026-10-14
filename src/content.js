@@ -33,7 +33,7 @@ export const t = {
     contactB: "",
     footer: "GEORGE S — UTVECKLARE",
     projects: [
-      { title: "Lumen Design System", meta: "Concept project · 2024", tag: "Figma plugin" },
+      { title: "Online Reservation System", meta: "Meriq 2023 - 2026", tag: "" },
       { title: "Field — Data Platform", meta: "Concept project · 2023", tag: "Web app" },
       { title: "Tessera Mobile", meta: "Concept project · 2023", tag: "iOS + Android" },
       { title: "Design", meta: "2026", tag: "Design" },
@@ -71,7 +71,7 @@ export const t = {
     contactB: "Låt oss bygga det.",
     footer: "GEORGE S — UTVECKLARE",
     projects: [
-      { title: "Lumen Design System", meta: "Stockprojekt · 2024", tag: "Figma-plugin" },
+      { title: "Online Reservation System", meta: "Meriq 2023 - 2026", tag: "" },
       { title: "Field — Dataplattform", meta: "Stockprojekt · 2023", tag: "Webbapp" },
       { title: "Tessera Mobile", meta: "Stockprojekt · 2023", tag: "iOS + Android" },
       { title: "Design", meta: "2026", tag: "Design" },
