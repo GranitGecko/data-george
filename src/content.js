@@ -13,7 +13,7 @@ export const t = {
     selectedWork: "Portfolio",
     design: "Take a look at the header",
     skillsKicker: "SKILLS",
-    skillsTitle: "Egenskaper",
+    skillsTitle: "Qualification",
     skillsIntro: "\n",
     open: "Open",
     aboutLabel: "ABOUT",
