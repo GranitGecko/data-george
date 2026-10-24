@@ -33,8 +33,8 @@ export const t = {
     contactB: "",
     footer: "GEORGE S — UTVECKLARE",
     projects: [
-      { title: "Online Reservation System", meta: "Meriq 2023 - 2026", tag: "" },
-      { title: "Field — Data Platform", meta: "Concept project · 2023", tag: "Web app" },
+      { title: "Online Reservation System", meta: "Meriq 2023 - 2026", tag: "React - Typescript" },
+      { title: "News Archive and Webscraping tool", meta: "Own · 2026", tag: "Python - SQL" },
       { title: "Tessera Mobile", meta: "Concept project · 2023", tag: "iOS + Android" },
       { title: "Design", meta: "2026", tag: "Design" },
     ],

@@ -217,10 +217,17 @@ function Index() {
         <ul className="mt-4">
 
           {c.projects.map((p, i) => {
+
             const isReservation = p.title === "Online Reservation System";
-            const projectUrl = isReservation
-              ? "https://granitgecko.github.io/Booking-system/"
-              : "#work";
+            const isNewsArchive = p.title === "News Archive and Webscraping tool";
+
+            let projectUrl = "#work";
+
+            if (isReservation) {
+              projectUrl = "https://granitgecko.github.io/Booking-system/";
+            } else if (isNewsArchive) {
+              projectUrl = "https://granitgecko.github.io/Nyhetsarkiv/";
+            }
 
             return (
               <li
@@ -234,8 +241,8 @@ function Index() {
                 <div className="flex flex-col">
                   <a
                     href={projectUrl}
-                    target={isReservation ? "_blank" : undefined}
-                    rel={isReservation ? "noopener noreferrer" : undefined}
+                    target={isReservation || isNewsArchive ? "_blank" : undefined}
+                    rel={isReservation || isNewsArchive ? "noopener noreferrer" : undefined}
                     className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand md:text-4xl"
                   >
                     <CodeText enabled={codeMode} name="project" compact>
